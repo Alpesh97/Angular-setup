@@ -1,0 +1,22 @@
+@import "main";
+
+.transfer-submitpopup-wrapper {
+  p {
+    font-size: 18px;
+    line-height: 22px;
+    margin-bottom: 25px;
+    text-align: center;
+    color: $black;
+
+    @include bp(sm-max) {
+      margin-bottom: 20px;
+      font-size: 16px;
+      line-height: 20px;
+    }
+  }
+
+  .bottom-btn-list {
+    justify-content: center;
+  }
+
+}

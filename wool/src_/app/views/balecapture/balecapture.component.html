@@ -1,0 +1,78 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="balecapture-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Bale Capture</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-has-searchform">
+                <h2>Bale Capture</h2>
+                <div class="form-group">
+                    <label for="search" style="display: none;">Search</label>
+                    <input class="form-control" type="text" id="search" placeHolder="Search Brand"
+                        (change)="searchBalecapture()" [(ngModel)]="search">
+                    <div class="submit-form">
+                        <img src="assets/images/search.svg" alt="search">
+                        <input type="submit" (click)="searchBalecapture()">
+                    </div>
+                </div>
+                <div class="loader-block" (click)="refresh()"><a><img src="assets/images/loader-white.svg"
+                            alt="loader"></a>
+                </div>
+            </div>
+            <div class="custom-table-wrapper">
+                <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc" matSortDisableClear
+                    (matSortChange)="sorting()">
+                    <ng-container matColumnDef="broker">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before'> Broker </th>
+                        <ng-container *ngIf="coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerKeyId}} ({{element.brokerName}})
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="!coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerKeyId}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container matColumnDef="brand">
+                        <th mat-header-cell *matHeaderCellDef> Brand </th>
+                        <td mat-cell *matCellDef="let element"> {{element.clipBrand}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="balecount">
+                        <th mat-header-cell *matHeaderCellDef> Bale Count </th>
+                        <td mat-cell *matCellDef="let element"> {{element.locationItemCount}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lanenumber">
+                        <th mat-header-cell *matHeaderCellDef> Lane No </th>
+                        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef> Action </th>
+                        <td mat-cell *matCellDef="let element"><img src="assets/images/action-edit.svg" alt="edit"
+                                class="desktop-img">
+                            <img src="assets/images/next-arrow.svg" alt="next-arrow" class="mobile-img">
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setBalesNumber(row)"></tr>
+                </table>
+            </div>
+            <div class="data-not-found" *ngIf="coreHelperService.isArrayEmpty(dataSource.data) && !isFirstTimeLoadData">
+                No Data Found</div>
+            <div class="custom-pagination">
+                <mat-paginator [length]="totalLength" [pageSize]="20" [pageSizeOptions]="[20,50,100,200,300,500]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

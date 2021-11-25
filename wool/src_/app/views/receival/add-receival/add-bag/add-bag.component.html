@@ -1,0 +1,19 @@
+<div class="addbag-wrapper">
+    <div class="modal-heading">
+        <h3>Add Bags</h3>
+        <a href="javascript:void(0)" title="Close" [mat-dialog-close]="null"><img src="assets/images/cross.svg"
+                alt="cross"></a>
+
+    </div>
+    <div class="modal-content">
+        <div class="form-group">
+            <label for="add-bag" style="display:none">add-bag</label>
+            <input class="form-control" type="number" placeholder="Add Bags Number" [(ngModel)]="bags" id="add-bag" #addBag>
+        </div>
+        <ul class="bottom-btn-list">
+            <li>
+                <button title="Add" class="btn lg blue-btn" (click)="closeModel()">Add</button>
+            </li>
+        </ul>
+    </div>
+</div>

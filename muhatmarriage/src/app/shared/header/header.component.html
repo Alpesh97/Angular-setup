@@ -1,0 +1,428 @@
+<header class="site-header" #header [ngClass]="{'home-header': page_link}">
+  <div class="header-wrapper" [ngClass]="{'has-menu-icon': has_login}">
+    <div class="logo-wrapper">
+      <a [routerLink]="['/home']" routerLinkActive="router-link-active">
+        <img src="assets/images/site-logo.svg" alt="MutahMarriage" *ngIf="router.url == '/' || router.url == '/home' ">
+        <img src="assets/images/site-logo-pink.svg" alt="MutahMarriage"
+             *ngIf="router.url != '/' && router.url != '/home' ">
+      </a>
+      <div class="mob-nav-icon" (click)="mobile_menu()"
+           *ngIf="router.url == '/search-result' || router.url == '/profile' || router.url == '/user/extra-search' ">
+        <span></span>
+      </div>
+    </div>
+    <div class="main-nav-wrapper">
+      <div class="main-nav-wrapper-inner-wrapper">
+        <div class="home-nav" *ngIf="router.url == '/' || router.url == '/home' ">
+          <ul>
+            <li>
+              <button mat-flat-button color="primary" routerLink="/auth/register"
+                      routerLinkActive="router-link-active">{{labels?.register | titlecase}}</button>
+            </li>
+          </ul>
+        </div>
+        <div class="search-nav">
+          <nav class="main-nav" *ngIf="authService.isAuthenticated()">
+            <div class="navigation-inner">
+              <ul>
+                <li><a [routerLink]="['/home']" routerLinkActive="router-link-active" title="Home"><img
+                  src="./assets/images/home.svg" alt="Home"></a></li>
+                <li><a [routerLink]="['/mailroom']" routerLinkActive="router-link-active" title="Mailroom"><img
+                  src="./assets/images/mail.svg" alt="Mail"></a></li>
+                <li><a [routerLink]="['/']" routerLinkActive="router-link-active" title="Chatroom"><img
+                  src="./assets/images/chat.svg" alt="Chat"></a></li>
+                <li>
+                  <button mat-icon-button aria-label="Notifications" class="notification-btn" matBadge="42"
+                          matBadgeOverlap=true title="Notification">
+                    <img src="./assets/images/header-bell.svg" alt="Notification">
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </nav>
+          <div class="lang-profile-wrapper" [ngClass]="{'register-header': has_register}">
+            <ul class="profile-nav" *ngIf="authService.isAuthenticated()">
+              <li>
+                <div class="profile-menu user-profile">
+                  <button mat-button [matMenuTriggerFor]="beforeMenu"
+                          [disableRipple]="true"><img src="./assets/images/add-user.svg" alt="Search"></button>
+                  <mat-menu #beforeMenu="matMenu" xPosition="before" class="profile-menu-list">
+                    <a href="#" title="My Marriage" mat-menu-item>My Marriage</a>
+                    <a href="#" title="My Calendar" mat-menu-item>My Calendar</a>
+                    <a routerLink="/user/profile"  title="Profile" mat-menu-item>Profile</a>
+                    <a href="#" title="Settings" mat-menu-item>Settings</a>
+                    <a href="#" title="Buy Subscription" mat-menu-item>Store</a>
+                    <a href="#" title="TIPS & DISCLAIMER" mat-menu-item>TIPS & DISCLAIMER</a>
+                    <a (click)="logout()" title="Logout" mat-menu-item>Logout</a>
+                  </mat-menu>
+                </div>
+              </li>
+              <li>
+                <div class="profile-menu">
+                  <button mat-button [disableRipple]="true" [matMenuTriggerFor]="myProfile" (menuOpened)="OnTargetMenuOpened($event)"  class="profile-menu-link"><img
+                      src="./assets/images/profile.svg" alt="Notification" title="Profile"></button>
+                  <mat-menu #myProfile="matMenu" xPosition="before" class="my-profile-wrapper" >
+                    <div class="profile-heading">
+                      My Profile
+                      <a href="javascript:void(0)"><img
+                          src="./assets/images/close.svg" alt="close"></a>
+                    </div>
+                    <div class="three-col-box-layout-wrapper">
+                      <div class="three-col-box-layout">
+                        <div class="inner-col-box">
+                          <div class="inner-col">
+                            <div class="top-block">
+                              <div class="person-detail-block">
+                                <ul class="person-overview-wrapper">
+                                  <li>
+                                    <div class="person-overview-inner">
+                                      <div class="person-wrapper">
+                                        <span class="person-name">jessica_carne_77</span>
+                                        <span class="person-category">Wife</span>
+                                      </div>
+                                      <div class="report-block-wrapper">
+                                        <div class="report-block-inner" >
+                                          <a href="#" title="Wishlist">
+                                            <img src="./assets/images/wishlist-pink.svg"
+                                            alt="Wishlist" class="normal-img">
+                                            <img src="./assets/images/wishlist-pink-fill.svg"
+                                            alt="Wishlist" class="active-img">
+
+                                        </a>
+                                        <div class="report-block-btn  dropdown-menu-wrapper">
+                                          <button mat-button class='dropdown-menu-link' (click)='dropdowntoggle($event)'>
+                                            <mat-icon>keyboard_arrow_down</mat-icon>
+                                          </button>
+                                          <div (click)='dropdownPropogation($event)'
+                                            class="report-block-list dropdown-menu">
+                                            <button mat-stroked-button>Report</button>
+                                            <button mat-stroked-button>Block</button>
+                                        </div>
+                                        </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="person-overview-inner">
+                                      <div class="ratting-wrapper">
+                                        <ul>
+                                          <li class="filled">
+                                            <img class="normal" src="./assets/images/star-grey.svg">
+                                            <img class="active" src="./assets/images/star.svg">
+                                          </li>
+                                          <li class="filled">
+                                            <img class="normal" src="./assets/images/star-grey.svg">
+                                            <img class="active" src="./assets/images/star.svg">
+                                          </li>
+                                          <li class="filled">
+                                            <img class="normal" src="./assets/images/star-grey.svg">
+                                            <img class="active" src="./assets/images/star.svg">
+                                          </li>
+                                          <li>
+                                            <img class="normal" src="./assets/images/star-grey.svg">
+                                            <img class="active" src="./assets/images/star.svg">
+                                          </li>
+                                          <li>
+                                            <img class="normal" src="./assets/images/star-grey.svg">
+                                            <img class="active" src="./assets/images/star.svg">
+                                          </li>
+                                        </ul>
+                                      </div>
+                                      <div class="online-status">
+                                        <p>Online</p>
+                                      </div>
+                                    </div>
+                                  </li>
+                                  <li>
+                                    <div class="person-overview-inner">
+                                      <p class="mm-wp">MM(2) | WP</p>
+                                      <p class="traveller">Traveller</p>
+                                    </div>
+                                  </li>
+                                </ul>
+                                <ul class="person-detail-listing">
+                                  <li class="person-gender">
+                                    <p><span>Gender:</span>Female</p>
+                                  </li>
+                                  <li class="person-nationality">
+                                    <p><span>Nationality:</span>American</p>
+                                  </li>
+                                  <li class="person-age">
+                                    <p><span>Age:</span>26 yrs</p>
+                                  </li>
+                                  <li class="person-height">
+                                    <p><span>Height:</span>5′0″</p>
+                                  </li>
+                                  <li class="person-weight">
+                                    <p><span>Weight:</span>65 kg</p>
+                                  </li>
+                                  <li class="person-location">
+                                    <p><span>Location:</span>Qatar, Madinat ash Shamal,
+                                      Madīnat ash Shamāl</p>
+                                  </li>
+                                </ul>
+                                <ul class="full-width-list">
+                                  <li class="person-duration">
+                                    <p><span>Required Duration of Mut'ah Marriage:</span>30 Days
+                                    </p>
+                                  </li>
+                                </ul>
+                                <ul class="full-width-list person-tooltip-list">
+                                  <li class="person-condition dropdown-menu-wrapper">
+                                    <p class="dropdown-menu-link" (click)='dropdowntoggle($event)'>Conditions
+                                      <span></span>
+                                    </p>
+                                    <div class="instruction-popup dropdown-menu" (click)='dropdownPropogation($event)'>
+                                      <ul>
+                                        <li>1. No consummation</li>
+                                        <li>2. The husband/wife must stay overnight, at
+                                          least for some nights, during the period of
+                                          marriage and as per agreement.</li>
+                                        <li>3. The husband/wife must pay for all or some of
+                                          the basic living expenses during the period of
+                                          marriage & as per agreement.</li>
+                                        <li>4. Becoming an agent in forgoing the remaining
+                                          period of marriage to myself</li>
+                                        <li>5. For acquaintance and talking only</li>
+                                      </ul>
+                                    </div>
+                                  </li>
+                                  <li class="person-purposes dropdown-menu-wrapper">
+                                    <p class="dropdown-menu-link" (click)='dropdowntoggle($event)'>Purposes
+                                      <span></span>
+                                    </p>
+                                    <div class="instruction-popup dropdown-menu" (click)='dropdownPropogation($event)'>
+                                      <ul>
+                                        <li>1. Evaluation period before getting married
+                                          indefinitely</li>
+                                        <li>2. Utilizing this marriage for a specific job
+                                        </li>
+                                        <li>3. Making a temporary intimate relationship</li>
+                                        <li>4. Other purpose</li>
+                                      </ul>
+                                    </div>
+                                  </li>
+                                  <li class="person-purposes dropdown-menu-wrapper">
+                                    <p class="dropdown-menu-link" (click)='dropdowntoggle($event)'>Summary <span></span>
+                                    </p>
+                                    <div class="instruction-popup dropdown-menu" (click)='dropdownPropogation($event)'>
+                                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing
+                                        elit. Aenean commodo ligula eget dolor aenean dummy
+                                        text</p>
+                                    </div>
+                                  </li>
+
+                                </ul>
+                                <ul class="full-width-list">
+                                  <li class="person-info">
+                                    <div class="info-wrapper dropdown-menu-wrapper">
+                                      <p><span>Last login:</span>2021-03-18 | 17:59</p>
+                                      <a href="javascript:void(0)" title="More" class="dropdown-menu-link"
+                                        (click)='dropdowntoggle($event)'>More
+                                      </a>
+                                      <div class="dropdown-menu more-info-popup primary-tabbing"
+                                        (click)='dropdownPropogation($event)'>
+                                        <div class="popup-heading">
+                                          More Information
+                                          <a href="javascript:void(0)" (click)='dropdownHide()'><img
+                                              src="./assets/images/close.svg" alt="close"></a>
+                                        </div>
+                                        <mat-tab-group [dynamicHeight]='true' (click)="$event.stopPropagation()" #targetMenuTabGroup>
+                                          <mat-tab label="Sensitive">
+                                            <div class="more-info-content">
+                                              <div class="more-info-item">
+                                                <h6>Religion:</h6>
+                                                <ul>
+                                                  <li>Shai Muslim</li>
+                                                  <li>Twelver</li>
+                                                  <li>Moderate</li>
+                                                </ul>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Race:</h6>
+                                                <p>Native American</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Smoking:</h6>
+                                                <p> Non-smoker</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6> Drinking:</h6>
+                                                <p>Non-drinker</p>
+                                              </div>
+                                            </div>
+                                          </mat-tab>
+                                          <mat-tab label="Personal">
+                                            <div class="more-info-content">
+                                              <div class="more-info-item">
+                                                <h6>Owns a Private Property or a
+                                                  Place with Privacy
+                                                  for Mut'ah Marriage:
+                                                </h6>
+                                                <p>Yes </p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>MBTI Personality Type:</h6>
+                                                <p>ISTJ</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Languages Spoken:</h6>
+                                                <p>Arabic, English, Urdu</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6> First Language:</h6>
+                                                <p>Arabic</p>
+                                              </div>
+                                            </div>
+                                          </mat-tab>
+                                          <mat-tab label="Body">
+                                            <div class="more-info-content">
+                                              <div class="more-info-item">
+                                                <h6>Body Type:
+                                                </h6>
+                                                <p>Average</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Skin Tone:</h6>
+                                                <p>Fair</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Eye Color:</h6>
+                                                <p>Green</p>
+                                              </div>
+                                              <div class="more-info-item">
+                                                <h6>Hair Look:</h6>
+                                                <ul>
+                                                  <li>Black</li>
+                                                  <li>Long</li>
+                                                  <li>Straight</li>
+                                                </ul>
+                                              </div>
+                                            </div>
+                                          </mat-tab>
+                                        </mat-tab-group>
+                                      </div>
+                                    </div>
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </mat-menu>
+                </div>
+              </li>
+            </ul>
+            <div class="language-dropdown">
+              <mat-form-field *ngIf="router.url == '/' || router.url == '/home' ">
+                <mat-select [(value)]="selected" panelClass="custom-select-dropdown">
+                  <mat-option (click)="changesLanguage(language)" *ngFor="let language of languages"
+                              [value]="language.value">
+                    {{language.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="icon-lang-selector" *ngIf="router.url != '/' && router.url != '/home' "
+                   title="Select Language">
+                <svg (click)="toggleLanguage()" version="1.1" class="language-switcher"
+                     xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                     viewBox="0 0 489.7 512" style="enable-background:new 0 0 489.7 512;" xml:space="preserve"
+                     width="30px" height="30px">
+                                    <style type="text/css">
+                                        .st0 {
+                                          fill: #2D2D2D;
+                                        }
+
+                                        .st1 {
+                                          fill: #464646;
+                                        }
+
+                                        .st2 {
+                                          fill: #FFFBF5;
+                                        }
+
+                                        .st3 {
+                                          fill: #12B0FF;
+                                        }
+
+                                        .st4 {
+                                          fill: #36C6FF;
+                                        }
+
+                                        .st5 {
+                                          display: none;
+                                        }
+
+                                        .st6 {
+                                          display: inline;
+                                          fill: #F7F0EB;
+                                        }
+
+                                        .st7 {
+                                          display: inline;
+                                          fill: #FFFBF5;
+                                        }
+
+                                        .st8 {
+                                          fill: #FFFFFF;
+                                        }
+                                    </style>
+                  <g>
+                                        <g>
+                                            <g>
+                                                <g>
+                                                    <path class="st0"
+                                                          d="M489.7,309.4V0H354.5l-10,169.1l10,161.6l42.6-21.3L489.7,309.4L489.7,309.4z"/>
+                                                  <path class="st1"
+                                                        d="M339.5,0c-82.8,0-150.2,67.4-150.2,150.2v159.2h81.1v63.4l84.1-42.1V0H339.5z"/>
+                                                </g>
+                                            </g>
+                                          <g class="black-arabic-e">
+                                                <path class="st2" d="M382.7,209.1c5.9-0.4,11.9-1,17.9-1.8l3.3,26.2c-6.7,1.8-13.9,3.4-21.5,4.7s-14.1,2-19.5,2
+                                                    c-14.1,0-25.1-4.5-33.2-13.5s-12.1-20.9-12.1-35.8c0-18.4,5.7-31,17.1-37.8c-2-4.7-3.4-8.9-4.4-12.6c-1-3.7-1.5-8.1-1.5-13.4
+                                                    c0-13.7,3.1-24.2,9.2-31.6c6.1-7.4,13-12.4,20.7-14.9s14.7-3.7,21-3.7c6,0,14.4,1.2,25,3.5l-1.6,32.1c-9.8-3.2-16.7-4.7-20.7-4.7
+                                                    c-4.5,0-8.9,1.3-13.3,3.8c-4.4,2.6-6.6,8.1-6.6,16.6c0,7.4,2.2,13.7,6.7,19.1c6.6,0.3,14.1,0.9,22.5,1.8V178
+                                                    c-2.5-0.4-6.2-0.7-11.2-1s-8.9-0.4-11.8-0.4c-5.1,0-9.3,1.5-12.4,4.4c-3.2,3-4.7,7-4.7,12.1c0,4.7,1.5,8.7,4.6,11.8
+                                                    c3.1,3.2,7.6,4.7,13.5,4.7C372.5,209.7,376.8,209.5,382.7,209.1z"/>
+                                            </g>
+                                        </g>
+                    <g>
+                                            <g>
+                                                <g>
+                                                    <path class="st3" d="M150.2,139.2h-15l-10,179.8l10,151l84.1,42.1v-63.4h81.1V289.4C300.4,206.6,233,139.2,150.2,139.2
+                                                        L150.2,139.2z"/>
+                                                  <path class="st4" d="M0,139.2v309.4h92.6l42.6,21.3V139.2H0z"/>
+                                                </g>
+                                            </g>
+
+                      <g class="black-e">
+                                                <path class="st8"
+                                                      d="M129.1,260.2v20.7h42.2v29.9h-42.2v20.7h54V362H94V229.6h89v30.5h-53.9V260.2z"/>
+                                            </g>
+                      <g class="blue-e">
+                                                <path class="st8"
+                                                      d="M349.9,122.9v20.7h42.2v29.9h-42.2v20.7h54v30.5h-89.1V92.3h89v30.5h-53.9V122.9z"/>
+                                            </g>
+                                        </g>
+                                    </g>
+                  <g class="blue-arabic-e">
+                                        <path class="st8" d="M157.8,348.2c5.9-0.4,11.9-1,17.9-1.8l3.3,26.2c-6.7,1.8-13.9,3.4-21.5,4.7c-7.6,1.3-14.1,2-19.5,2
+                                            c-14.1,0-25.1-4.5-33.2-13.5S92.7,344.9,92.7,330c0-18.4,5.7-31,17.1-37.8c-2-4.7-3.4-8.9-4.4-12.6s-1.5-8.1-1.5-13.4
+                                            c0-13.7,3.1-24.2,9.2-31.6c6.1-7.4,13-12.4,20.7-14.9s14.7-3.7,21-3.7c6,0,14.4,1.2,25,3.5l-1.6,32.1c-9.8-3.2-16.7-4.7-20.7-4.7
+                                            c-4.5,0-8.9,1.3-13.3,3.8c-4.4,2.6-6.6,8.1-6.6,16.6c0,7.4,2.2,13.7,6.7,19.1c6.6,0.3,14.1,0.9,22.5,1.8v28.9
+                                            c-2.5-0.4-6.2-0.7-11.2-1s-8.9-0.4-11.8-0.4c-5.1,0-9.3,1.5-12.4,4.4c-3.2,3-4.7,7-4.7,12.1c0,4.7,1.5,8.7,4.6,11.8
+                                            c3.1,3.2,7.6,4.7,13.5,4.7C147.6,348.7,151.8,348.6,157.8,348.2z"/>
+                                    </g>
+                                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

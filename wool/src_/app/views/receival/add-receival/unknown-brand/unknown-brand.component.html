@@ -1,0 +1,19 @@
+<div class="addbag-wrapper">
+    <div class="modal-heading">
+        <h3>Add Brand</h3>
+        <a href="javascript:void(0)" title="Close" [mat-dialog-close]="null"><img src="assets/images/cross.svg"
+                alt="cross"></a>
+
+    </div>
+    <div class="modal-content">
+        <div class="form-group">
+            <label for="brand" style="display:none">Brand</label>
+            <input class="form-control" type="text" placeholder="Enter Brand" id="brand" [(ngModel)]="brand">
+        </div>
+        <ul class="bottom-btn-list">
+            <li>
+                <button title="Add" class="btn lg blue-btn" (click)="closeModel()">Add</button>
+            </li>
+        </ul>
+    </div>
+</div>

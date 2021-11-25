@@ -1,0 +1,27 @@
+<header class="site-header" #header>
+    <div class="container">
+        <div class="site-header-inner">
+            <div class="header-logo">
+                <a href="javascript:void(0)" (click)="goBack()" title="back" class="back-arrow">
+                    <em><img src="assets/images/back-arrow.svg" alt="back"></em>
+                </a>
+                <div class="logo">
+                    <h1><em><img src="assets/images/site-logo.png" alt="logo"></em><span>
+                            {{coreHelperService.isStringEmptyOrWhitespace(coreStorageDataService.getCustomHeader()) ? '' : coreStorageDataService.getCustomHeader()}}
+                        </span></h1>
+                    <a href="#" title="Wool Receival Solution"></a>
+                </div>
+                <a class="btn icon-btn logout-btn" (click)="logout()" title="Logout">
+                    <em><img src="assets/images/logout-white.svg" alt="logout-ic"></em>
+                </a>
+            </div>
+            <div class="right-heading-block">
+                <div class="profilename-block">
+                    <p>Welcome, <span>{{coreStorageDataService.getUserName()}}</span></p>
+                </div>
+                <a class="btn icon-btn" (click)="logout()" title="Logout">
+                    <em><img src="assets/images/logout-ic.svg" alt="logout-ic"></em>logout</a>
+            </div>
+        </div>
+    </div>
+</header>

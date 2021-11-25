@@ -1,0 +1,16 @@
+@import "main";
+.stowage-wrapper {
+    padding:22px 0 30px;
+    @include bp(md-max) {
+        padding-top:17px;
+    }
+    @include bp(smd-max) {
+        padding-bottom: 90px;
+        padding-top:28px;
+    }
+    .breadcrumbs {
+        @include bp(smd-max) {
+            display: none;
+        }
+    }
+}

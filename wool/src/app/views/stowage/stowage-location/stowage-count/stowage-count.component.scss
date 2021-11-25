@@ -1,0 +1,15 @@
+@import 'main';
+.stowage-count-wrapper {
+    .modal-heading {
+        margin-bottom: 15px;
+    }
+    .form-group {
+        margin-bottom: 50px;
+        @include bp(lg-max) {
+            margin-bottom: 40px;
+        }
+        @include bp(sm-max) {
+            margin-bottom: 35px;
+        }
+    }
+}

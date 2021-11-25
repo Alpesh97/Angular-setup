@@ -1,0 +1,197 @@
+@import "main";
+
+.site-header {
+  background: $black;
+  padding: 29px 0 24px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  z-index: 1003;
+
+  @include bp(md-max) {
+    padding: 20px 0;
+  }
+
+  @include bp(smd-max) {
+    padding: 0;
+    background-color: transparent;
+  }
+
+  .container {
+    @include bp(smd-max) {
+      padding: 0;
+    }
+  }
+
+  .site-header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include bp(smd-max) {
+      flex-direction: column;
+    }
+
+    .header-logo {
+      margin-right: 30px;
+
+      @include bp(smd-max) {
+        margin-right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 15px 15px;
+        background: $black;
+        width: 100%;
+      }
+
+      .back-arrow {
+        display: none;
+
+        @include bp(smd-max) {
+          display: inline-block;
+          margin-right: 20px;
+          width: 23px;
+          ::ng-deep .dashboard & {
+              opacity: 0;
+              visibility: hidden;
+          }
+          em {
+            width: 23px;
+            position: relative;
+            top: 2px;
+          }
+        }
+      }
+
+      .btn {
+        display: none;
+
+        @include bp(smd-max) {
+          display: inline-flex;
+          background-color: transparent;
+          padding: 0;
+          border: 0;
+          width: 24px;
+
+          em {
+            padding: 0;
+          }
+        }
+      }
+
+      .logo {
+        position: relative;
+
+        a {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+        }
+
+        h1 {
+          color: $white;
+          font-weight: 700;
+
+          span {
+            @include bp(smd-min) {
+              display: none;
+            }
+            ::ng-deep .dashboard & {
+              display: none !important;
+          }
+          }
+
+          em {
+            @include bp(smd-max) {
+              display: none;
+            }
+            ::ng-deep .dashboard & {
+              @include bp(smd-max) {
+                display: inline-block !important;
+              }
+          }
+          }
+        }
+
+        @include bp(md-max) {
+          max-width: 280px;
+          margin-right: 20px;
+        }
+
+        @include bp(md-max) {
+          max-width: 280px;
+          margin-right: 20px;
+        }
+
+        @include bp(smd-max) {
+          max-width: inherit;
+          margin-right: 20px;
+        }
+      }
+    }
+
+    .right-heading-block {
+      display: flex;
+      align-items: center;
+      margin-top: -5px;
+
+      @include bp(md-max) {
+        margin-top: 0;
+      }
+
+      @include bp(smd-max) {
+        width: 100%;
+        padding: 20px 15px;
+        display: none;
+      }
+
+      .btn {
+        @include bp(smd-max) {
+          display: none;
+        }
+      }
+
+      .profilename-block {
+        margin-right: 21px;
+        text-transform: capitalize;
+
+        @include bp(md-max) {
+          margin-right: 15px;
+        }
+
+        @include bp(smd-max) {
+          margin-right: 0px;
+          padding: 0;
+        }
+
+        @include bp(xxs-max) {
+          margin-right: 0px;
+        }
+
+        p {
+          font-size: 18px;
+          line-height: 22px;
+          color: $white;
+          font-weight: 300;
+
+          @include bp(smd-max) {
+            font-size: 16px;
+            line-height: 20px;
+            display: flex;
+            color: $black;
+          }
+
+          span {
+            font-weight: 700;
+            margin-left: 3px;
+
+          }
+        }
+      }
+    }
+  }
+}

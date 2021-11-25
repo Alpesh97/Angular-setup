@@ -1,0 +1,183 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="balecapturestreet-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/balecapture']">Bale Capture</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Bale Capture Street</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-wrapper hidden-tab">
+                <h2 class="hidden-tab">{{balecaptureData.brokerName}} - {{temporaryFillBaleCount}} OF {{totalBaleCount}}
+                </h2>
+                <ul>
+                    <li (click)="updateTotalBaleCount(true)">
+                        <a href="javascript:void(0)" class="btn blue-btn"
+                            [ngClass]="{'disable': totalBaleCount === originalTotalCount}"><img
+                                src="assets/images/more.svg" alt="add-icon"></a>
+                    </li>
+                    <li (click)="updateTotalBaleCount(false)">
+                        <a href="javascript:void(0)" class="btn blue-btn"
+                            [ngClass]="{'disable': totalBaleCount === 1 || totalBaleCount === temporaryFillBaleCount}"><img
+                                src="assets/images/minus.svg" alt="remove-icon"></a>
+                    </li>
+                    <li class="hidden-mob">
+                        <div class="loader-block">
+                            <a (click)="resetAllTemporaryData()" class="btn blue-btn"><img
+                                    src="assets/images/loader-white.svg" alt="loader"></a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="add-bale-wrapper">
+                <div class="left-bale-block">
+                    <div class="left-bale-heading">
+                        <a href="javascript:void(0)" (click)="addNewBale()" title="Add More" class="blue-plus-link">Add
+                            More</a>
+                        <div class="loader-block visible-tab">
+                            <a (click)="resetAllTemporaryData()"><img src="assets/images/loader-white.svg"
+                                    alt="loader"></a>
+                        </div>
+                    </div>
+                    <ul class="bale-fill-list">
+                        <li *ngFor='let item of baleList' class="liBox">
+                            <div class="custom-badge gray"
+                                *ngIf="!item.isPermanentFill && !item.isSelected && !item.isTemporaryFill"
+                                (click)="selectBale(item)">
+                                {{item.baleNumberKey}}
+                            </div>
+                            <div class="custom-badge" *ngIf="item.isPermanentFill">{{item.baleNumberKey}}
+                            </div>
+                            <ng-container *ngIf="item.isSelected">
+                                <div class="custom-badge blue" *ngIf="temporaryFillBaleCount !== totalBaleCount">
+                                    {{item.baleNumberKey}}
+                                </div>
+                                <div class="custom-badge blue" *ngIf="temporaryFillBaleCount === totalBaleCount && coreHelperService.isStringEmptyOrWhitespace(item.baleDescriptionKey)">
+                                    {{item.baleNumberKey}}
+                                </div>
+                                <div class="custom-badge blue"
+                                    *ngIf="temporaryFillBaleCount === totalBaleCount && !coreHelperService.isStringEmptyOrWhitespace(item.baleDescriptionKey)"
+                                    (click)="showTooltip(item,$event)">
+                                    {{item.baleNumberKey}}
+                                </div>
+                                <div class="tooltip-modal {{item.tooltipPosition}}" *ngIf="item.isShowTooltip">
+                                    <div class="tooltip-content">
+                                        <div class="remove-icon">
+                                            <img src="assets/images/cross-white.svg"
+                                                (click)="undoChanges(item);$event.stopPropagation()" alt="cancel">
+                                        </div>
+                                        <p>
+                                            {{item.baleDescriptionKey}}
+                                        </p>
+                                    </div>
+                                </div>
+                            </ng-container>
+                            <div class="custom-badge green" *ngIf="item.isTemporaryFill"
+                                (click)="showTooltip(item,$event)">
+                                {{item.baleNumberKey}}
+                            </div>
+                            <div class="tooltip-modal {{item.tooltipPosition}}"
+                                *ngIf="item.isTemporaryFill && item.isShowTooltip">
+                                <div class="tooltip-content">
+                                    <div class="remove-icon">
+                                        <img src="assets/images/cross-white.svg"
+                                            (click)="undoChanges(item);$event.stopPropagation()" alt="cancel">
+                                    </div>
+                                    <p>
+                                        {{item.baleDescriptionKey}}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+                <div class="right-search-sidebar">
+                    <div class="form-group">
+                        <label for="wool-type" style="display: none;">Wool Desc</label>
+                        <div class="submit-form">
+                            <img src="assets/images/search.svg" alt="search">
+                            <input type="submit">
+                        </div>
+                        <mat-progress-spinner class="progress-spin" style="float: right;" diameter="20"
+                            mode="indeterminate" *ngIf="isSearchLoader"></mat-progress-spinner>
+                        <input class="form-control" type="text" placeholder="Search Wool Desc" id="wool-type"
+                            (input)="searchWoolTypeData()" [(ngModel)]="searchWoolType">
+                        <ul class="search-list" infiniteScroll [infiniteScrollDistance]="2"
+                            [infiniteScrollThrottle]="50" [scrollWindow]="false" (scrolled)="onScroll()">
+                            <li *ngFor="let item of woolTypeList" (click)="selectWoolType(item)">
+                                <a href="javascript:void(0)"
+                                    [ngClass]="{'blue': item.baleDescriptionKey === selectedBale.baleDescriptionKey}">{{item.baleDescriptionKey}}</a>
+                            </li>
+                            <li class="has-padding"
+                                *ngIf="coreHelperService.isArrayEmpty(woolTypeList) && isSearchLoader">Please Wait...
+                            </li>
+                            <li class="has-padding"
+                                *ngIf="coreHelperService.isArrayEmpty(woolTypeList) && !isSearchLoader">Wool Desc Not
+                                Found For {{balecaptureData.brokerName}}
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+            <div class="bottom-fix-bar">
+                <h3>{{coreHelperService.isArrayEmpty(discrepancyList) ? 'No Discrepancy Found' : 'Select Discrepancy' }}
+                </h3>
+                <div class="btn-wrapper">
+                    <ul class="discrepency-list">
+                        <li *ngFor="let item of discrepancyList" (click)="selectDiscrepancy(item)">
+                            <a href="javascript:void(0)" class="btn lg"
+                                [ngClass]="{'blue-btn': item.bisStatisticType === selectedBale.bisStatisticType,'gray-btn':  item.bisStatisticType !== selectedBale.bisStatisticType}">{{item.bisStatisticDescription}}</a>
+                        </li>
+                    </ul>
+                    <ul class="visible-tab add-remove-list hidden-mob">
+                        <li (click)="updateTotalBaleCount(true)">
+                            <a href="javascript:void(0)" class="btn blue-btn"
+                                [ngClass]="{'disable': totalBaleCount === originalTotalCount}"><img
+                                    src="assets/images/more.svg" alt="add-icon"></a>
+                        </li>
+                        <li (click)="updateTotalBaleCount(false)">
+                            <a href="javascript:void(0)" class="btn blue-btn"
+                                [ngClass]="{'disable': totalBaleCount === 1 || totalBaleCount === temporaryFillBaleCount}"><img
+                                    src="assets/images/minus.svg" alt="remove-icon"></a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- <div class="form-group" *ngIf="discrepency">
+                    <label for="discrepency" style="display: none;">Discrepency</label>
+                    <textarea class="form-control" id="discrepency">
+                    </textarea>
+                </div> -->
+                <div class="bottom-btn-block">
+                    <ul class="bottom-btn-list">
+                        <li>
+                            <a (click)='openSuccessDialog()' title="Submit" class="btn lg blue-btn"
+                                [ngClass]="{'disable': temporaryFillBaleCount != totalBaleCount}">Submit</a>
+                        </li>
+                        <li>
+                            <a (click)='cancelTemporaryBale()' title="Cancel" class="btn lg border-btn">Cancel</a>
+                        </li>
+                    </ul>
+                    <ul class="bottom-btn-list">
+                        <li>
+                            <a (click)='pauseBale()' title="Submit" class="btn lg blue-btn">Pause</a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-footer *ngIf="showFooter"></app-footer>

@@ -1,0 +1,634 @@
+@import "main";
+
+.balecapturestreet-wrapper {
+  padding: 27px 0 50px;
+  position: relative;
+
+  @include bp(lg-max) {
+    padding: 27px 0 50px;
+  }
+
+  @include bp(md-max) {
+    padding-top: 17px;
+  }
+
+  @include bp(smd-max) {
+    padding-bottom: 0;
+    padding-top: 28px;
+  }
+
+  @include bp(sm-max) {
+    padding-bottom: 110px;
+  }
+
+  .heading-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+
+    @include bp(lg-max) {
+      margin-bottom: 30px;
+    }
+
+    @include bp(sm-max) {
+      position: absolute;
+      right: 15px;
+      top: 28px;
+      margin: 0;
+      display: flex !important;
+      z-index: 5;
+    }
+
+    ul {
+      display: flex;
+
+      li {
+        +li {
+          margin-left: 10px;
+        }
+
+        .loader-block {
+          .btn {
+            img {
+              width: 25px;
+            }
+          }
+        }
+
+        .btn {
+          background: $primary-blue;
+
+          &.disable {
+            opacity: 0.6;
+            pointer-events: none;
+            cursor: default;
+            background:$gray;
+            border-color:$gray;
+          }
+
+          @include bp(sm-max) {
+            height: 35px;
+          }
+
+          img {
+            width: 20px;
+
+            @include bp(sm-max) {
+              width: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .add-bale-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 50px;
+
+    @include bp(lg-max) {
+      margin-bottom: 40px;
+    }
+
+    @include bp(smd-max) {
+      margin-bottom: 0;
+      position: fixed;
+      left: 15px;
+      right: 15px;
+      top: 100px;
+      height: calc(100% - 397px);
+
+      &.textarea-show {
+        height: calc(100% - 515px);
+
+        .search-list {
+          max-height: calc(100% - 542px) !important;
+        }
+      }
+    }
+
+    @include bp(sm-max) {
+      height: inherit;
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+      flex-wrap: wrap;
+
+      &.textarea-show {
+        height: inherit;
+
+        .search-list {
+          max-height: calc(100% - 542px) !important;
+        }
+      }
+    }
+
+    .left-bale-block {
+      max-width: calc(100% - 347px);
+      flex: 0 0 calc(100% - 347px);
+      padding-right: 30px;
+      overflow-y: auto;
+      max-height: 500px;
+
+      @include bp(lg-max) {
+        padding-right: 20px;
+        max-height: 400px;
+      }
+
+      @include bp(smd-max) {
+        max-width: calc(100% - 270px);
+        flex: 0 0 calc(100% - 270px);
+      }
+
+      @include bp(smd-max) {
+        max-height: inherit;
+      }
+
+      @include bp(sm-max) {
+        max-height: 300px;
+        max-width: 100%;
+        flex: 0 0 100%;
+        margin-top: 15px;
+        order: 2;
+        padding-right: 0;
+        overflow: hidden;
+        overflow-y: auto;
+      }
+
+      .left-bale-heading {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        @include bp(smd-max) {
+          align-items: center;
+          margin-bottom: 15px;
+        }
+
+        .loader-block {
+          background: $primary-blue;
+          max-width: 35px;
+          flex: 0 0 35px;
+          margin-left: 20px;
+          height: 35px;
+          text-align: center;
+          min-width: 35px;
+
+          a {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            img {
+              width: 25px;
+            }
+          }
+        }
+      }
+
+      .bale-fill-list {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0 -12px;
+
+        @include bp(lg-max) {
+          margin: 0 -8px;
+        }
+
+        @include bp(sm-max) {
+          margin: 0 -4px;
+        }
+
+        li {
+          padding: 0 12px;
+          margin-bottom: 25px;
+          max-width: 16.5%;
+          flex: 0 0 16.5%;
+          position: relative;
+
+          @include bp(lg-max) {
+            padding: 0 8px;
+            margin-bottom: 16px;
+          }
+
+          @include bp(smd-max) {
+            max-width: 20%;
+            flex: 0 0 20%;
+          }
+
+          @include bp(sm-max) {
+            padding: 0 4px;
+            margin-bottom: 8px;
+          }
+          @include bp(xxs-max) {
+            max-width: 25%;
+            flex:0 0 25%;
+          }
+
+          .remove-bale {
+            position: absolute;
+            right: 5px;
+            top: 1px;
+            width: 14px;
+            cursor: pointer;
+            z-index: 10;
+
+            @include bp(xxxs-max) {
+              width: 12px;
+              right: 2px;
+              top: -2px;
+            }
+          }
+
+          .custom-badge {
+            height: 50px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            line-height: 26px;
+            position: relative;
+
+            @include bp(smd-max) {
+              font-size: 18px;
+              line-height: 22px;
+              height: 40px;
+            }
+
+            @include bp(sm-max) {
+              font-size: 16px;
+              line-height: 20px;
+            }
+          }
+        }
+      }
+    }
+
+    .right-search-sidebar {
+      max-width: 347px;
+      flex: 0 0 347px;
+      padding-left: 30px;
+      position: relative;
+      margin-top: -8px;
+
+      @include bp(lg-max) {
+        padding-left: 20px;
+      }
+
+      @include bp(smd-max) {
+        max-width: 270px;
+        flex: 0 0 270px;
+      }
+
+      @include bp(sm-max) {
+        order: 1;
+        margin-top: 0;
+        padding-left: 0;
+        max-width: 210px;
+        flex: 0 0 210px;
+        padding-right: 20px;
+      }
+
+      .form-group {
+        position: relative;
+
+        .form-control {
+          height: 35px;
+          padding-right: 30px;
+
+          @include bp(smd-max) {
+            padding: 10px 0px 10px 30px;
+          }
+
+          @include bp(sm-max) {
+            &:focus~.search-list {
+              opacity: 1 !important;
+              visibility: visible !important;
+            }
+          }
+        }
+
+        .progress-spin {
+          position: absolute;
+          top: 7px;
+          right: 26px;
+          z-index: 5;
+
+          @include bp(smd-max) {
+            right: 0;
+          }
+        }
+
+        .submit-form {
+          position: absolute;
+          right: 0px;
+          top: 0;
+          width: 30px;
+          height: 35px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          @include bp(smd-max) {
+            left: 0;
+            right: auto;
+            justify-content: flex-start;
+          }
+
+          input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            z-index: 5;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            width: 30px;
+            bottom: 0;
+            opacity: 0;
+          }
+        }
+      }
+
+      .search-list {
+        border: 1px solid rgba($gray, 0.8);
+        border-top: 0;
+        overflow-y: auto;
+        max-height: 500px;
+        @include transition(all 0.3s);
+
+        @include bp(lg-max) {
+          max-height: 400px;
+        }
+
+        @include bp(smd-max) {
+          max-height: inherit;
+          position: fixed;
+          right: 15px;
+          top: 127px;
+          width: 250px;
+          max-height: calc(100% - 428px);
+        }
+
+        @include bp(sm-max) {
+          position: absolute;
+          right: 0;
+          top: 35px;
+          width: 100%;
+          max-height: 200px !important;
+          background: $white;
+          z-index: 50;
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        li {
+          &.has-padding {
+            padding: 12px;
+            display: block;
+            text-transform: uppercase;
+            color: $black;
+            font-size: 14px;
+            line-height: 18px;
+            text-align: center;
+          }
+
+          a {
+            padding: 12px;
+            display: block;
+            text-transform: uppercase;
+            color: $black;
+            font-size: 14px;
+            line-height: 18px;
+
+            &:hover {
+              background: $off_white;
+            }
+
+            &.blue {
+              color: $white;
+              background: $primary-blue;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .bottom-fix-bar {
+    @include bp(smd-max) {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 15px 15px 20px;
+      background: rgba($black, 0.7);
+    }
+
+    @include bp(sm-max) {
+      background: transparent;
+      position: relative;
+      padding: 0;
+      margin-top: 15px;
+    }
+
+    h3 {
+      @include bp(smd-max) {
+        color: #fff;
+        text-align: center;
+      }
+
+      @include bp(sm-max) {
+        color: $black;
+        text-align: left;
+      }
+    }
+
+    .btn-wrapper {
+      @include bp(smd-max) {
+        display: flex;
+        margin-top: 15px;
+        justify-content: space-between;
+        align-items: flex-start;
+
+      }
+    }
+
+    .add-remove-list {
+      display: flex;
+      margin-left: 10px;
+
+      li {
+        +li {
+          margin-top: 16px;
+
+          @include bp(smd-max) {
+            margin-top: 8px;
+          }
+        }
+
+        .btn {
+          background: $primary-blue;
+          min-width: 90px;
+
+          &.disable {
+            opacity: 0.6;
+            pointer-events: none;
+            cursor: default;
+            background: $gray;
+            border-color: $gray;
+          }
+
+          @include bp(sm-max) {
+            height: 35px;
+            min-width: inherit;
+            padding: 5px 10px;
+          }
+
+          img {
+            width: 20px;
+          }
+        }
+      }
+    }
+
+    .form-group {
+      max-width: 50%;
+      margin-top: 20px;
+
+      @include bp(smd-max) {
+        max-width: 100%;
+      }
+
+      @include bp(sm-max) {
+        margin-top: 10px;
+      }
+    }
+
+    .discrepency-list {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 45px -12px -25px;
+
+      @include bp(lg-max) {
+        margin: 15px -8px -16px;
+      }
+
+      @include bp(smd-max) {
+        margin-top: 0;
+        max-height: 92px;
+        overflow-y: auto;
+      }
+
+      @include bp(sm-max) {
+        margin: 0 -4px -8px;
+      }
+
+      li {
+        padding: 0 12px;
+        margin-bottom: 25px;
+
+        @include bp(lg-max) {
+          padding: 0 8px;
+          margin-bottom: 16px;
+        }
+
+        @include bp(sm-max) {
+          margin-bottom: 8px;
+          padding: 0 4px;
+        }
+
+        .btn {
+          font-size: 22px;
+          text-transform: none;
+          min-width: 144px;
+          padding: 10px 22px;
+
+          @include bp(smd-max) {
+            font-size: 18px;
+            min-width: 120px;
+            padding: 10px 12px;
+          }
+
+          @include bp(sm-max) {
+            font-size: 14px;
+            height: 30px;
+            min-width: inherit;
+            padding: 5px 10px;
+          }
+
+          &.disable {
+            pointer-events: none;
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    .bottom-btn-block {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 80px;
+
+      @include bp(lg-max) {
+        margin-top: 40px;
+      }
+
+      @include bp(sm-max) {
+        margin-top: 10px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        padding: 15px 15px 15px;
+        background: rgba($black, 0.7);
+        bottom: 0;
+        margin-top: 0;
+      }
+
+      .bottom-btn-list {
+        li {
+          +li {
+            @include bp(sm-max) {
+              margin-left: 15px;
+            }
+          }
+        }
+
+        @include bp(smd-max) {
+          .btn {
+            &.border-btn {
+              border-color: $white;
+
+              &:hover {
+                border-color: $black;
+              }
+            }
+          }
+        }
+
+        @include bp(sm-max) {
+          .btn {
+            min-width: 100px;
+            height: 40px;
+            padding: 5px 20px;
+          }
+        }
+
+        @include bp(xxs-max) {
+          .btn {
+            min-width: inherit;
+            font-size: 12px;
+            padding: 15px;
+          }
+        }
+      }
+    }
+  }
+}

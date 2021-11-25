@@ -1,0 +1,143 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="transfer-location-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a routerLink="/transfer">Transfer</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Stow</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-has-searchform">
+                <h2>Stow <span>(Location)</span></h2>
+                <div class="form-group">
+                    <label for="search" style="display: none;">Search</label>
+                    <input class="form-control" type="text" id="search" placeHolder="Search Broker Id and Brand"
+                        (change)="searchLocation(false)" [(ngModel)]="search">
+                    <div class="submit-form">
+                        <img src="assets/images/search.svg" alt="search">
+                        <input type="submit" (click)="searchLocation(false)">
+                    </div>
+                </div>
+                <div class="loader-block">
+                    <a (click)="refresh()"><img src="assets/images/loader-white.svg" alt="loader"></a>
+                </div>
+            </div>
+            <h3 class="hidden-tab"
+                *ngIf="addedBalesCount !== 0 && !coreHelperService.isArrayEmpty(transferLocationList)">
+                {{addedBalesCount}} - {{balesCount}} Bales to Stow</h3>
+            <h3 class="hidden-tab"
+                *ngIf="addedBalesCount === 0 && !coreHelperService.isArrayEmpty(transferLocationList)">{{balesCount}}
+                Bales to Stow</h3>
+            <h3 class="hidden-tab" *ngIf="!isAutoCall && coreHelperService.isArrayEmpty(transferLocationList)">No Data
+                Found</h3>
+            <ul class="stow-list">
+                <li *ngFor="let location of transferLocationList" id="{{location.location}}">
+                    <span matTooltip="{{location.location}}" matTooltipPosition="above"
+                        matTooltipClass="custom-tooltip">{{location.location}}</span>
+                    <ng-container *ngIf="!coreHelperService.isArrayEmpty(location.locationItemList)">
+                        <ng-container
+                            *ngIf="location.maximumItemCount === location.locationItemCount + location.temporaryAddedCount">
+                            <div class="stow-badge">
+                                <div class="filled-data custom-badge disable" matTooltip="{{getTooltipData(location)}}"
+                                    matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                    [ngStyle]="{'width': ((location.locationItemCount/location.maximumItemCount)*100) + '%'}">
+                                    <span
+                                        *ngFor="let item of location.locationItemGroupList">{{item.clipBrand}}-{{item.locationItemCount}}</span>
+                                </div>
+                                <div class="filled-data custom-badge green disable"
+                                    matTooltip="{{clipBrand}}-{{location.temporaryAddedCount}}"
+                                    matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                    (click)="openStowTransferDialog(location)"
+                                    [ngStyle]="{'width':((location.temporaryAddedCount/location.maximumItemCount)*100) + '%'}"
+                                    *ngIf="location.temporaryAddedCount > 0">
+                                    <span>{{clipBrand}}-{{location.temporaryAddedCount}}</span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="location.maximumItemCount !== location.locationItemCount+location.temporaryAddedCount">
+                            <div class="stow-badge">
+                                <div class="filled-data custom-badge disable" matTooltip="{{getTooltipData(location)}}"
+                                    matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                    [ngStyle]="{'width': ((location.locationItemCount/location.maximumItemCount)*100) + '%'}">
+                                    <span
+                                        *ngFor="let item of location.locationItemGroupList">{{item.clipBrand}}-{{item.locationItemCount}}</span>
+                                </div>
+                                <div class="filled-data custom-badge green disable"
+                                    matTooltip="{{clipBrand}}-{{location.temporaryAddedCount}}"
+                                    matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                    (click)="openStowTransferDialog(location)"
+                                    [ngStyle]="{'width':((location.temporaryAddedCount/location.maximumItemCount)*100) + '%'}"
+                                    *ngIf="location.temporaryAddedCount > 0">
+                                    <span>{{clipBrand}}-{{location.temporaryAddedCount}}</span>
+                                </div>
+                                <div class="remaining-data custom-badge gray"
+                                    matTooltip="{{location.maximumItemCount - (location.locationItemCount + location.temporaryAddedCount)}}"
+                                    matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                    [ngStyle]="{'width': 100-(((location.locationItemCount+location.temporaryAddedCount)/location.maximumItemCount)*100) + '%'}">
+                                    {{location.maximumItemCount - (location.locationItemCount + location.temporaryAddedCount)}}
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container *ngIf="coreHelperService.isArrayEmpty(location.locationItemList)">
+                        <div class="stow-badge">
+                            <div class="filled-data custom-badge green disable"
+                                matTooltip="{{clipBrand}}-{{location.temporaryAddedCount}}" matTooltipPosition="above"
+                                matTooltipClass="custom-tooltip" (click)="openStowTransferDialog(location)"
+                                [ngStyle]="{'width': ((location.temporaryAddedCount/location.maximumItemCount)*100) + '%'}"
+                                *ngIf="location.temporaryAddedCount > 0">
+                                <span>{{clipBrand}}-{{location.temporaryAddedCount}}</span>
+                            </div>
+                            <div class="remaining-data custom-badge gray"
+                                matTooltip="{{location.maximumItemCount - (location.locationItemCount + location.temporaryAddedCount)}}"
+                                matTooltipPosition="above" matTooltipClass="custom-tooltip"
+                                [ngStyle]="{'width': 100-(((location.locationItemCount+location.temporaryAddedCount)/location.maximumItemCount)*100) + '%'}"
+                                *ngIf="(location.maximumItemCount - (location.locationItemCount + location.temporaryAddedCount)) > 0">
+                                {{location.maximumItemCount - (location.locationItemCount + location.temporaryAddedCount)}}
+                            </div>
+                        </div>
+                    </ng-container>
+                </li>
+            </ul>
+            <div class="bottom-fix-bar">
+                <h3 class="visible-tab"
+                    *ngIf="addedBalesCount !== 0 && !coreHelperService.isArrayEmpty(transferLocationList)">
+                    {{addedBalesCount}} - {{balesCount}} Bales to Stow
+                </h3>
+                <h3 class="visible-tab"
+                    *ngIf="addedBalesCount === 0 && !coreHelperService.isArrayEmpty(transferLocationList)">
+                    {{balesCount}} Bales to Stow</h3>
+                <ul class="bottom-btn-list" *ngIf="!coreHelperService.isArrayEmpty(transferLocationList)">
+                    <li>
+                        <a href="javascript:void(0)" title="Submit" class="btn lg blue-btn"
+                            (click)="openSubmitDialog()">Submit</a>
+                    </li>
+                    <li>
+                        <a title="Cancel" class="btn lg border-btn" (click)="cancel()">Cancel</a>
+                    </li>
+                </ul>
+
+                <div class="custom-pagination">
+                    <mat-paginator #paginator [length]="totalLength" [pageSize]="50" [pageSizeOptions]="[50]"
+                        (page)="onChangePage($event)"></mat-paginator>
+                </div>
+                <h3 class="visible-tab"
+                    *ngIf="!isAutoCall && coreHelperService.isArrayEmpty(transferLocationList)">No Data Found
+                </h3>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<app-footer *ngIf="showFooter"></app-footer>

@@ -1,0 +1,58 @@
+@import "./../../../../scss/main.scss";
+.submit-popup-wrapper {
+  .modal-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    position: relative;
+    @include bp(sm-max) {
+        margin-bottom: 20px;
+    }
+    a {
+        line-height: 0;
+        padding: 15px;
+        margin: -15px -15px -15px 0;
+        @include bp(sm-max) {
+            padding:5px;
+            margin:-5px -5px -5px 0;
+        }
+        @include bp(xxxs-max) {
+            position: absolute;
+            right: 0px;
+            top:-15px;
+        }
+    }
+    
+    
+  }
+  .radio-list {
+      margin-bottom: 48px;
+      @include bp(md-max) {
+        margin-bottom: 30px;
+      }
+      @include bp(sm-max) {
+        margin-bottom: 20px;
+      }
+      li {
+          + li{
+              margin-top:10px;
+          }
+          .custom-checkbox-outer {
+            @include bp(xxs-max) {
+              width:100%;
+              display: block;
+            }
+          }
+      }
+  }
+
+  .pull-right{
+    float: right;
+    @include bp(xxs-max) {
+      width:100%;
+     float: none;
+      margin-top:10px;
+    }
+  }
+}

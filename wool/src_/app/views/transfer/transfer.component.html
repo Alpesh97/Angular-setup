@@ -1,0 +1,96 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="transfer-wrapper global-table-grid-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Transfer</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-has-searchform">
+                <h2>Transfer <span>(Received Wool)</span></h2>
+                <div class="form-group">
+                    <label for="search" style="display: none;">Search</label>
+                    <input class="form-control" type="text" id="search" placeHolder="Search Brand"
+                        (change)="searchTransfer()" [(ngModel)]="search">
+                    <div class="submit-form">
+                        <img src="assets/images/search.svg" alt="search">
+                        <input type="submit" (click)="searchTransfer()">
+                    </div>
+                </div>
+                <div class="loader-block" (click)="refresh()">
+                    <a><img src="assets/images/loader-white.svg"
+                            alt="loader"></a>
+                </div>
+            </div>
+            <div class="custom-table-wrapper has-multiple-sort">
+                <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc" (matSortChange)="sorting($event)">
+                    <ng-container matColumnDef="broker">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="normal-ic">
+                            </em>Broker </th>
+                        <ng-container *ngIf="coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element">
+                                {{element.brokerKeyId}} ({{element.brokerName}})
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="!coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element">
+                                {{element.brokerKeyId}}
+                            </td>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container matColumnDef="brand">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="normal-ic">
+                            </em>Brand </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.clipBrand}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="balecount"  class="default-cursor">
+                        <th mat-header-cell *matHeaderCellDef> Bale Count </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.locationItemCount}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="lane">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="normal-ic">
+                            </em> Lane No </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.location}}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef  class="default-cursor"> Action </th>
+                        <td mat-cell *matCellDef="let element"><img src="assets/images/action-edit.svg" alt="edit"
+                                class="desktop-img">
+                            <img src="assets/images/next-arrow.svg" alt="next-arrow" class="mobile-img">
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="transferLocation(row)"></tr>
+                </table>
+
+            </div>
+            <div class="data-not-found" *ngIf="coreHelperService.isArrayEmpty(dataSource.data) && !isFirstTimeLoadData">
+                No Data Found</div>
+            <div class="custom-pagination">
+                <mat-paginator [length]="totalLength" [pageSize]="20" [pageSizeOptions]="[20,50,100,200,300,500]"
+                    (page)="onChangePage($event)"></mat-paginator>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

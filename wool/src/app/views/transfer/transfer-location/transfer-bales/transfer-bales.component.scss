@@ -1,0 +1,43 @@
+@import 'main';
+.transfer-bales-wrapper {
+    .modal-heading {
+        margin-bottom: 15px;
+    }
+    ::ng-deep  .ng-autocomplete .input-container:after {
+        background-size:16px !important;
+    }
+    ::ng-deep .autocomplete-container .suggestions-container ul {
+        max-height: 125px !important;
+        @include bp(sm-max) {
+            max-height: 100px !important;
+        }
+      }
+    .form-group {
+        margin-bottom: 40px;
+        @include bp(lg-max) {
+            margin-bottom: 30px;
+        }
+        @include bp(sm-max) {
+            margin-bottom: 25px;
+        }
+        .form-control {
+            height: 30px;
+        }
+    }
+    .bottom-btn-list {
+        margin-top: 60px;
+        justify-content: space-between;
+        li {
+            .btn {
+                min-width: 100px;
+
+                @include bp(xxs-max) {
+                    min-width: 90px;
+                }
+                @include bp(xxxs-max) {
+                    min-width: 70px;
+                }
+            }
+        }
+    }
+}

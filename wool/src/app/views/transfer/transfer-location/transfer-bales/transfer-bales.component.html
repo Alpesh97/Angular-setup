@@ -1,0 +1,50 @@
+<div class="transfer-bales-wrapper">
+    <div class="modal-heading">
+        <h3>Transfer Located Wool</h3>
+        <a href="javascript:void(0)" title="Close" (click)="onCancel()"><img src="assets/images/cross.svg"
+                alt="cross"></a>
+
+    </div>
+    <div class="modal-content">
+        <div class="form-group">
+            <label>Selected Location Quantity</label>
+            <input class="form-control" type="number" placeholder="Selected Location Quantity"
+                [(ngModel)]="data.selectedLocationQuantity" #selectedLocationQuantity>
+        </div>
+        <div class="form-group">
+            <label for="selected-location">Selected Location</label>
+            <input class="form-control" type="text" placeholder="Selected Location" [(ngModel)]="data.selectedLocation" disabled>
+        </div>
+        <div class="form-group">
+
+            <label for="carrier">To Location <span class="mandatory">*</span>
+                <mat-progress-spinner style="float: right;" diameter="20" mode="indeterminate" *ngIf="isLocationLoader">
+                </mat-progress-spinner>
+            </label>
+
+            <div class="custom-select">
+                <ng-autocomplete #transferAutocomplete
+                [data]="locationList" searchKeyword="location" placeHolder="Select Location"
+                    [itemTemplate]="locationTemplate" (inputChanged)='onChangeLocationSearch($event)'
+                    (selected)="selectEvent($event)" minQueryLength="3"
+                    (inputFocused)="openPanel()">
+                </ng-autocomplete>
+
+                <ng-template #locationTemplate let-item>
+                    <a [innerHTML]="item.location"></a>
+                </ng-template>
+            </div>
+        </div>
+        <ul class="bottom-btn-list">
+            <li>
+                <button title="Submit" class="btn blue-btn" [ngClass]="{'disable': coreHelperService.isStringEmptyOrWhitespace(data.toLocation)}" (click)="onSubmit()">Submit</button>
+            </li>
+            <li>
+                <button title="Sort" class="btn blue-btn" (click)="onSort()">Sort</button>
+            </li>
+            <li>
+                <a href="javascript:void(0)" title="Cancel" class="btn  border-btn" (click)="onCancel()">Cancel</a>
+            </li>
+        </ul>
+    </div>
+</div>

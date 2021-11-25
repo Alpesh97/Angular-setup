@@ -1,0 +1,5 @@
+<app-loader></app-loader>
+<button *ngIf="corePwaService.promptEvent" (click)="installPwa()">
+    Install
+</button>
+<router-outlet body></router-outlet>

@@ -1,0 +1,111 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="marker-detail-wrapper">
+        <div class="container">
+            <div class="breadcrumbs hidden-tab">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/marker']">Markup</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Markup Details</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-wrapper hidden-tab">
+                <h2>Markup Details</h2>
+                <h3>{{markerData.brokerName + " " + (index+1) + " - " + (markerBaleDetails.length)}}</h3>
+            </div>
+            <div class="custom-table-wrapper no-hover">
+                <table mat-table [dataSource]="dataSource">
+                    <ng-container matColumnDef="broker">
+                        <th mat-header-cell *matHeaderCellDef> Broker </th>
+                        <ng-container *ngIf="coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerKeyId}} ({{element.brokerName}})
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="!coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerKeyId}} </td>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container matColumnDef="brand">
+                        <th mat-header-cell *matHeaderCellDef> Brand </th>
+                        <td mat-cell *matCellDef="let element"> {{element.clipBrand}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalbalecount">
+                        <th mat-header-cell *matHeaderCellDef>Total Bale Count </th>
+                        <td mat-cell *matCellDef="let element"> {{element.baleCount}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="locationnumber">
+                        <th mat-header-cell *matHeaderCellDef> Location </th>
+                        <td mat-cell *matCellDef="let element"> {{element.location}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="balecount">
+                        <th mat-header-cell *matHeaderCellDef> Bale Count </th>
+                        <td mat-cell *matCellDef="let element"> {{element.remainingBaleCount}} </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+                    </tr>
+                </table>
+            </div>
+            <div class="marker-box-wrapper-outer">
+                <div class="box-wrapper">
+                    <ul>
+                        <li>
+                            <div class="box-detail">
+                                <h4>Bale Number</h4>
+                                <p>{{markerBaleDetails[index].baleNumberKey}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="box-detail">
+
+                                <h4>Wool Type</h4>
+                                <p>{{markerBaleDetails[index].baleType}}</p>
+                            </div>
+
+                        </li>
+                    </ul>
+                </div>
+                <div class="box-wrapper">
+                    <ul>
+                        <li>
+                            <div class="box-detail">
+                                <h4>Sale</h4>
+                                <p>{{markerBaleDetails[index].saleNumberIdKey}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="box-detail">
+                                <h4>Folio</h4>
+                                <p>{{markerBaleDetails[index].folioNumberKey}}</p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="box-detail">
+                                <h4>Bales</h4>
+                                <p>{{markerBaleDetails[index].bales}}</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class='bottom-fix-bar'>
+                <ul class="bottom-btn-list">
+                    <li>
+                        <a href="javascript:void(0)" title="Next" class="btn lg blue-btn" (click)="goToNext()">Next</a>
+                    </li>
+                    <li>
+                        <a title="Suspend" class="btn lg border-btn" (click)="clickToSuspend()">Suspend</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

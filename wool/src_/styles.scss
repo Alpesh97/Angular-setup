@@ -1,0 +1,108 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./app/scss/main";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import url('https://fonts.googleapis.com/css?family=Lato:300,300i,400,400i,700,700i,900,900i&display=swap');
+body {
+  margin: 0px;
+}
+*,*:after,*:before {
+box-sizing:border-box;
+}
+
+::-moz-selection {
+    color: $white;
+    background: $black;
+}
+
+::selection {
+    color: $white;
+    background: $black;
+}
+
+html {
+    font-size: 62.5%;
+    min-height: 100%;
+}
+
+body {
+    @include rem-fallback(font-size, 14);
+    @include rem-fallback(line-height, 18);
+    overflow-x: hidden;
+    color: $black;
+    -webkit-font-smoothing: subpixel-antialiased;
+    -webkit-tap-highlight-color: transparent;
+    // min-height: 100%;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+    -webkit-appearance: none;
+}
+
+:focus {
+    outline: 0;
+}
+
+button {
+    border: 0;
+}
+
+button:focus {
+    outline: 0;
+}
+
+a {
+    display: inline-block;
+    @include transition(all 0.3s);
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+/* Firefox */
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+ul {
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+
+em {
+    display: inline-block;
+}
+.container {
+    max-width: 1296px;
+    width:100%;
+    padding:0 15px;
+    margin:0 auto;
+}
+
+.visible-tab {
+    display: none !important;
+    @include bp(smd-max) {
+        display: block !important;
+    }
+}
+.hidden-tab {
+    @include bp(smd-max) {
+        display: none !important;
+    }
+}

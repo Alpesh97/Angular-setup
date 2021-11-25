@@ -1,0 +1,52 @@
+<div class="submit-popup-wrapper">
+    <div class="modal-heading">
+        <h3>Select one of the options below</h3>
+        <a href="javascript:void(0)" title="Close" mat-dialog-close><img src="assets/images/cross.svg" alt="cross"
+                [mat-dialog-close]="null"></a>
+
+    </div>
+    <div class="modal-content">
+        <ul class="radio-list">
+            <li>
+                <div class="custom-checkbox-outer">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" name="submit-option" [(ngModel)]="isEmail" value="email">
+                        <div class="checkbox-border"></div>
+                        <label>Email</label>
+                    </div>
+                    <input type="text" name="email" class="pull-right" [(ngModel)]="receivalAdviceData.email"
+                        placeholder="Enter email">
+                </div>
+            </li>
+            <li>
+                <div class="custom-checkbox-outer">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" name="submit-option" [(ngModel)]="isSMS" value="sms">
+                        <div class="checkbox-border"></div>
+                        <label>Text Message (SMS)</label>
+                    </div>
+                    <input type="text" name="phoneNumber" class="pull-right"
+                        [(ngModel)]="receivalAdviceData.phoneNumber" placeholder="Enter phone number">
+                </div>
+            </li>
+            <li>
+                <div class="custom-checkbox-outer">
+                    <div class="custom-checkbox">
+                        <input type="checkbox" name="submit-option" [(ngModel)]="isPrint" value="print">
+                        <div class="checkbox-border"></div>
+                        <label>Print</label>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="bottom-btn-list">
+            <li>
+                <button title="Submit" class="btn lg blue-btn" (click)="onSubmit()">Submit</button>
+            </li>
+            <li>
+                <a href="javascript:void(0)" title="Cancel" class="btn lg border-btn"
+                    [mat-dialog-close]="null" (click)="doCancel()" >Cancel</a>
+            </li>
+        </ul>
+    </div>
+</div>

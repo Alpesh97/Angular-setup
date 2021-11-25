@@ -1,0 +1,189 @@
+@import "./../../../scss/main.scss";
+
+.receivals-outer {
+  padding-bottom: 126px;
+  padding-top: 22px;
+
+  @include bp(lg-max) {
+    padding-bottom: 80px;
+  }
+
+  @include bp(md-max) {
+    padding-bottom: 60px;
+    padding-top: 17px;
+  }
+
+  @include bp(smd-max) {
+    padding-top: 28px;
+  }
+
+  @include bp(sm-max) {
+    padding-bottom: 30px;
+  }
+
+  h2 {
+    margin-bottom: 39px;
+
+    @include bp(md-max) {
+      margin-bottom: 20px;
+    }
+
+    @include bp(smd-max) {
+      margin-bottom: 15px;
+      display: none;
+    }
+  }
+
+  h3 {
+    margin-bottom: 32px;
+
+    @include bp(md-max) {
+      margin-bottom: 20px;
+    }
+
+    @include bp(smd-max) {
+      display: none;
+    }
+  }
+
+  .checkbox-list {
+    margin-bottom: 46px;
+
+    @include bp(md-max) {
+      margin-bottom: 30px;
+    }
+
+    @include bp(smd-max) {
+      margin-top: 10px;
+    }
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+      +li {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .recivels-form-row-outer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -22px;
+
+    @include bp(slg-max) {
+      margin: 0 -15px;
+    }
+
+    @include bp(smd-max) {
+      margin: 0;
+    }
+
+    .receivels-form-col {
+      margin-bottom: 50px;
+      max-width: 33.33%;
+      flex: 0 0 33.33%;
+      padding: 0 22px;
+
+      @include bp(slg-max) {
+        padding: 0 15px;
+      }
+
+      @include bp(md-max) {
+        margin-bottom: 30px;
+      }
+
+      @include bp(smd-max) {
+        max-width: 100%;
+        flex: 0 0 100%;
+        padding: 0;
+      }
+
+      .others-block-outer {
+        display: flex;
+        justify-content: space-between;
+
+        @include bp(smd-max) {
+          flex-wrap: wrap;
+        }
+
+        .custom-select {
+          max-width: 33.33%;
+          flex: 0 0 33.33%;
+          padding-right: 22px;
+
+          @include bp(slg-max) {
+            padding-right: 15px;
+          }
+
+          @include bp(smd-max) {
+            max-width: 100%;
+            flex: 0 0 100%;
+            padding: 0;
+          }
+        }
+
+        .other-comment-div {
+          max-width: calc(100% - 33.33%);
+          flex: 0 0 calc(100% - 33.33%);
+          padding-left: 22px;
+
+          @include bp(slg-max) {
+            padding-left: 15px;
+          }
+
+          @include bp(smd-max) {
+            max-width: 100%;
+            flex: 0 0 100%;
+            padding: 0;
+            margin-top: 15px;
+          }
+        }
+      }
+
+      &.has-fullwidth {
+        max-width: 100%;
+        flex: 0 0 100%;
+      }
+    }
+  }
+
+}
+
+.broker-select {
+  position: relative;
+}
+
+.broker-select::before {
+  position: absolute;
+  content: "";
+  right: 5px;
+  top: 15px;
+  background-image: url("~src/assets/images/down-arrow.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 9px;
+  width: 16px;
+  transition: all 0.3s;
+}
+
+.broker-select select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 100%;
+  padding: 10px 0;
+  border: 1px solid #000;
+  border-width: 0 0 1px;
+  font-size: 18px;
+  font-family: "Lato", sans-serif;
+  line-height: 22px;
+  background: transparent;
+}
+
+.bold {
+  font-weight: bold !important;
+}

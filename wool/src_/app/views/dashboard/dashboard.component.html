@@ -1,0 +1,27 @@
+<div class="page-wrapper has-header dashboard has-no-footer">
+    <app-header></app-header>
+    <div class="dashboard-wrapper">
+        <div class="container">
+            <h2 class="visible-tab"><span>Welcome,</span> {{coreStorageDataService.getUserName()}}</h2>
+            <h2 class="hidden-tab">Dashboard</h2>
+            <!--p class="hidden-tab">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                laudantium, totam
+                rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia
+                consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. </p-->
+            <ul class="inner-page-linklist">
+                <li *ngFor='let item of dashboardList' class={{item.className}}>
+                    <div class="item-wrapper">
+                        <a routerLink="{{item.routeLink}}" title={{item.linkName}}></a>
+                        <div class="image-block">
+                            <img src="assets/images/{{item.imgName}}" alt={{item.imgName}}>
+                        </div>
+                        <h3>{{item.linkName}}</h3>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

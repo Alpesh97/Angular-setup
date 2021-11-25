@@ -1,0 +1,106 @@
+<div class="page-wrapper has-header inner-page has-no-footer">
+    <app-header></app-header>
+    <div class="stowage-wrapper global-table-grid-wrapper">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Stowage</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="heading-has-searchform">
+                <h2>Stowage <span>(Received Wool)</span></h2>
+                <div class="form-group">
+                    <label for="search" style="display: none;">Search</label>
+                    <input class="form-control" type="text" id="search" placeHolder="Search Brand"
+                        (change)="searchStowage()" [(ngModel)]="search">
+                    <div class="submit-form">
+                        <img src="assets/images/search.svg" alt="search">
+                        <input type="submit" (click)="searchStowage()">
+                    </div>
+                </div>
+                <div class="loader-block" (click)="refresh()"><a><img src="assets/images/loader-white.svg"
+                            alt="loader"></a>
+                </div>
+            </div>
+            <div class="custom-table-wrapper has-multiple-sort">
+                <table mat-table [dataSource]="dataSource" matSort matSortDirection="asc"
+                    (matSortChange)="sorting($event)">
+                    <ng-container matColumnDef="broker">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="normal-ic">
+                            </em>
+                            Broker </th>
+                        <ng-container *ngIf="coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerIdKey}} ({{element.brokerName}})
+                            </td>
+                        </ng-container>
+                        <ng-container *ngIf="!coreHelperService.checkIsDesktopScreen()">
+                            <td mat-cell *matCellDef="let element"> {{element.brokerIdKey}} </td>
+                        </ng-container>
+                    </ng-container>
+                    <ng-container matColumnDef="brand">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="reverse-ic">
+                            </em>
+                            Brand </th>
+                        <td mat-cell *matCellDef="let element"> {{element.clipBrand}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="carrier">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="reverse-ic">
+                            </em>
+                            Carrier </th>
+                        <td mat-cell *matCellDef="let element"> {{element.carrierName}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="date_entered">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition='before' class="is-sorting-col">
+                            <em>
+                                <img src="assets/images/sort-icon.svg" class="normal-ic">
+                            </em>
+                            Date Received
+                        </th>
+                        <td mat-cell *matCellDef="let element"> {{element.dateEntered}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="balecount">
+                        <th mat-header-cell *matHeaderCellDef class="default-cursor"> Bale Count </th>
+                        <td mat-cell *matCellDef="let element"> {{element.balesEstimated}} </td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef  class="default-cursor"> Status </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{element.locationItemSize > 0 ? 'Stowed' : 'Pending'}}
+                    </ng-container>
+                    <ng-container matColumnDef="action">
+                        <th mat-header-cell *matHeaderCellDef  class="default-cursor"> Action </th>
+                        <td mat-cell *matCellDef="let element"><img src="assets/images/action-edit.svg" alt="edit"
+                                class="desktop-img">
+                            <img src="assets/images/next-arrow.svg" alt="next-arrow" class="mobile-img">
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="setLocation(row)">
+                    </tr>
+                </table>
+
+            </div>
+            <div class="data-not-found" *ngIf="coreHelperService.isArrayEmpty(dataSource.data) && !isFirstTimeLoadData">
+                No Data Found</div>
+            <div class="custom-pagination">
+                <mat-paginator [length]="totalLength" [pageSize]="20" [pageSizeOptions]="[20,50,100,200,300,500]"
+                    (page)="onChangePage($event)">
+                </mat-paginator>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<app-footer *ngIf="showFooter"></app-footer>

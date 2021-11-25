@@ -1,0 +1,22 @@
+<div class="stowage-count-wrapper">
+    <div class="modal-heading">
+        <h3>Count</h3>
+        <a href="javascript:void(0)" title="Close" (click)="onCancel()"><img src="assets/images/cross.svg"
+                alt="cross"></a>
+
+    </div>
+    <div class="modal-content">
+        <div class="form-group">
+            <label for="count" style="display:none">count</label>
+            <input class="form-control" type="number" placeholder="Enter count" id="count" [(ngModel)]="blaseNumber" #count>
+        </div>
+        <ul class="bottom-btn-list">
+            <li>
+                <button title="Submit" class="btn lg blue-btn" (click)="onSubmit()">Submit</button>
+            </li>
+            <li>
+                <a href="javascript:void(0)" title="Cancel" class="btn lg border-btn" (click)="onCancel()">Cancel</a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,126 @@
+@import 'general';
+
+.site-footer {
+	background: $black;
+	@include rem-fallback(padding,70,0,30);
+	@include bp(slg-max) {
+		@include rem-fallback(padding,50,0,30);
+	}
+	@include bp(lg-max) {
+		@include rem-fallback(padding,40,0,30);
+	}
+	.top-footer {
+		@include rem-fallback(padding,0,0,24);
+		@include rem-fallback(margin,0,0,24);
+		border-bottom: 1px solid rgba(204,204,204,0.2);
+		.footer-widget-wrapper {
+			display: flex;
+			flex-wrap: wrap;
+			@include rem-fallback(margin,0,-15);
+			@include bp(smd-max) {
+				@include rem-fallback(margin-bottom,-30);
+			}
+			.footer-widget {
+				flex: 0 0 25%;
+				max-width: 25%;
+				@include rem-fallback(padding,0,15);
+				@include bp(smd-max) {
+					flex: 0 0 50%;
+					max-width: 50%;
+					@include rem-fallback(padding-bottom,30);
+				}
+				.footer-link-title {
+					@include rem-fallback(font-size,22);
+					color: $primary-color;
+					font-family: $secondary_font;
+					@include rem-fallback(margin-bottom,18);
+					@include bp(slg-max) {
+						@include rem-fallback(font-size,20);
+					}
+					@include bp(smd-max) {
+						@include rem-fallback(margin-bottom,6);
+					}
+					@include bp(sm-max) {
+						@include rem-fallback(font-size,18);
+					}
+					::ng-deep .rtl-direction &{
+						font-family: $cairo !important;
+					}
+				}
+				ul {
+					li {
+						@include rem-fallback(margin-bottom,5);
+						a {
+							@include rem-fallback(font-size,16);
+							color: $white;
+							line-height: 1.25;
+							@include bp(sm-max) {
+								@include rem-fallback(font-size,14);
+							}
+							&:hover {
+								opacity: 0.7;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	.bottom-footer {
+		.bottom-footer-wrapper {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			@include bp(sm-max) {
+				flex-wrap: wrap;
+				flex-direction: column;
+				align-items: center;
+			}
+			.copy-right-block {
+				@include bp(sm-max) {
+					@include rem-fallback(margin-bottom,15);
+				}
+				p {
+					color: $white;
+					@include rem-fallback(font-size,16);
+					@include rem-fallback(margin-bottom,0);
+					@include bp(smd-max) {
+						@include rem-fallback(font-size,14);
+					}
+					@include bp(sm-max) {
+						text-align: center;
+					}
+				}
+			}
+			.footer-social-link-block {
+				ul {
+					display: flex;
+					@include rem-fallback(margin,0,-10);
+					align-items: center;
+					@include bp(smd-max) {
+						@include rem-fallback(margin,0,-5);
+					}
+					li {
+						color: $white;
+						@include rem-fallback(padding,0,10);
+						@include rem-fallback(font-size,16);
+						@include bp(smd-max) {
+							@include rem-fallback(font-size,14);
+							@include rem-fallback(padding,0,5);
+						}
+						a {
+							img {
+								@include rem-fallback(width, 30);	
+								@include rem-fallback(height, 30);	
+								@include bp(smd-max) {
+									@include rem-fallback(width, 25);	
+									@include rem-fallback(height, 25);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

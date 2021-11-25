@@ -1,0 +1,13 @@
+@import './../../../../scss/main.scss';
+.addbag-wrapper {
+    .form-group{
+        margin-bottom: 25px;
+        @include bp(sm-max) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.bold{
+    font-weight: bold;
+}

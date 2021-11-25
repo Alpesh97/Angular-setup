@@ -1,0 +1,244 @@
+<div class="page-wrapper has-header inner-page">
+    <app-header></app-header>
+    <div class="receivals-outer">
+        <div class="container">
+            <div class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a [routerLink]="['/dashboard']">Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="#" class="current">Receivals</a>
+                    </li>
+                </ul>
+            </div>
+            <h2>Receivals</h2>
+            <h3>Add a New Received Record</h3>
+            <form [formGroup]="receivalForm">
+                <div class="recivels-form-row-outer">
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="broker">Broker <span class="mandatory">*</span>
+                            </label>
+                            <div class="broker-select">
+                                <select (change)="selectEvent('broker',$event)" [(ngModel)]="selectedBrokerId"
+                                    [ngModelOptions]="{standalone: true}">
+                                    <option value="">Select Broker</option>
+                                    <option *ngFor="let item of brokerList" [value]="item.id">
+                                        {{item.entityDescription}}
+                                    </option>
+                                </select>
+
+                            </div>
+                            <span *ngIf="isClickedToSubmit && receivalForm.controls.brokerIdKey.invalid"
+                                class="error-msg">Please
+                                Select Valid Broker</span>
+
+                        </div>
+                    </div>
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="brand">Brand <span class="mandatory">*</span>
+
+                                <mat-progress-spinner style="float: right;" diameter="20" [mode]="mode"
+                                    *ngIf="isBrandLoader">
+                                </mat-progress-spinner>
+                            </label>
+                            <form #form="ngForm">
+                                <div class="custom-select has-table">
+                                    <ng-autocomplete #brandAutoComplete [data]="brandList" searchKeyword="clipBrand"
+                                        placeHolder="Select Brand" [itemTemplate]="brandTemplate"
+                                        (inputChanged)='onChangeBrandSearch($event)'
+                                        (selected)="selectEvent('brand',$event)" [notFoundTemplate]="notFoundTemplate"
+                                        name="brandName" [(ngModel)]="brandInputText">
+                                    </ng-autocomplete>
+
+                                    <ng-template #brandTemplate let-item>
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th>Branch/Client</th>
+                                                    <th>Speci</th>
+                                                    <th>Unlotted Bales</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <a href="javascript:void(0)"
+                                                            [ngStyle]="{'font-weight': item.isBold ? '800' : ''}">
+                                                            <span [innerHTML]="item.clipBrand"
+                                                                *ngIf="item.clipBrand"></span><br>
+                                                            <span [innerHTML]="item.clientAccountDetails.accountName"
+                                                                *ngIf="item.clientAccountDetails"></span><br>
+                                                            <span
+                                                                [innerHTML]="item.clientAccountDetails.accountAddressLine1"
+                                                                *ngIf="item.clientAccountDetails"></span>&nbsp;
+                                                            <span
+                                                                [innerHTML]="item.clientAccountDetails.accountAddressLine3"
+                                                                *ngIf="item.clientAccountDetails"></span>&nbsp;
+                                                            <span
+                                                                [innerHTML]="item.clientAccountDetails.accountAddressState"
+                                                                *ngIf="item.clientAccountDetails"></span><br>
+                                                            <span [innerHTML]="item.brand.woolNumberKey"
+                                                                *ngIf="item.brand"></span>&nbsp;
+                                                            <span [innerHTML]="item.brand.clipCodeKey"
+                                                                *ngIf="item.brand"></span>
+                                                            <div><strong>LRD: {{item.lastReceivalDate}}</strong></div>
+                                                        </a>
+                                                        
+                                                    </td>
+                                                    <td>
+                                                        {{item.spec}}
+                                                    </td>
+                                                    <td>
+                                                        {{item.receivedBalesUnlotted}}
+                                                    </td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                                <span *ngIf="isClickedToSubmit && receivalForm.controls.clipBrand.invalid"
+                                    class="error-msg">Please Select Valid
+                                    Brand</span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="carrier">Carrier <span class="mandatory">*</span>
+
+                                <mat-progress-spinner style="float: right;" diameter="20" [mode]="mode"
+                                    *ngIf="isCarrierLoader">
+                                </mat-progress-spinner>
+                            </label>
+                            <form #form1="ngForm">
+                                <div class="custom-select">
+                                    <ng-autocomplete #carrierAutoComplete [data]="carrierList"
+                                        searchKeyword="carrierName" placeHolder="Select Carrier"
+                                        [itemTemplate]="carrierTemplate" (inputChanged)='onChangeCarrierSearch($event)'
+                                        [notFoundTemplate]="notFoundTemplate" (selected)="selectEvent('carrier',$event)"
+                                        minQueryLength="3" [(ngModel)]="carrierInputText"
+                                        [ngModelOptions]="{standalone: true}">
+                                    </ng-autocomplete>
+
+                                    <ng-template #carrierTemplate let-item>
+                                        <a [innerHTML]="item.carrierName"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+                                <span *ngIf="isClickedToSubmit && receivalForm.controls.carrierName.invalid"
+                                    class="error-msg">Please
+                                    Select Valid Carrier</span>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="classer-num">Classer Stencil</label>
+
+                            <input class="form-control" type="text" placeholder="Enter Classer Stencil" id="classer-num"
+                                formControlName="classerStencil">
+                            <span
+                                *ngIf="receivalForm.controls.classerStencil.dirty && receivalForm.controls.classerStencil.invalid"
+                                class="error-msg">Please Enter
+                                Valid Classer
+                                Stencil</span>
+                        </div>
+                    </div>
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="actual-count">Actual Count <span class="mandatory">*</span></label>
+
+                            <input class="form-control" type="number" placeholder="Enter Actual Count" id="actual-count"
+                                formControlName="actualCount">
+                            <span *ngIf="isClickedToSubmit && receivalForm.controls.actualCount.invalid"
+                                class="error-msg">Please Enter
+                                Actual Count</span>
+                        </div>
+                    </div>
+                    <div class="receivels-form-col">
+                        <div class="form-group">
+                            <label for="program">Quality Schemes
+                            </label>
+                            <div class="broker-select">
+                                <select (change)="selectEvent('qualitySchemes',$event)"
+                                    [(ngModel)]="selectedQualitySchemes" [ngModelOptions]="{standalone: true}">
+                                    <option *ngFor="let item of qualitySchemeList" [value]="item.clipPreparationWiCode">
+                                        {{item.qualitySchemeDesc}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="receivels-form-col has-fullwidth">
+                        <div class="form-group">
+                            <label for="comments">Comments</label>
+                            <div class="others-block-outer">
+                                <div class="custom-select">
+                                    <ng-autocomplete #commentsAutoComplete [data]="commentList" searchKeyword="comment"
+                                        placeHolder="Select Comments" [itemTemplate]="commentTemplate"
+                                        (inputChanged)='onChangeCommentSearch($event)'
+                                        [notFoundTemplate]="notFoundTemplate"
+                                        (selected)="selectEvent('comment',$event)">
+                                    </ng-autocomplete>
+
+                                    <ng-template #commentTemplate let-item>
+                                        <a [innerHTML]="item.comment"></a>
+                                    </ng-template>
+
+                                    <ng-template #notFoundTemplate let-notFound>
+                                        <div [innerHTML]="notFound"></div>
+                                    </ng-template>
+                                </div>
+
+                                <div class="other-comment-div" *ngIf='isShowOtherComment'>
+                                    <input class="form-control" type="text" placeholder="Enter Comments" id="comments"
+                                        formControlName="otherComment">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="checkbox-list">
+                    <li>
+                        <div class="custom-checkbox-outer">
+                            <div class="custom-checkbox">
+                                <input type="checkbox" formControlName="classReportAttached">
+                                <div class="checkbox-border"></div>
+                                <label>Class Report Attached</label>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0)" title="Add Bags" (click)="openBagDialog()"
+                            class="blue-plus-link">Add
+                            Bags</a>
+                    </li>
+                </ul>
+            </form>
+            <ul class="bottom-btn-list">
+                <li>
+                    <a href="javascript:void(0)" title="Submit" class="btn lg blue-btn"
+                        (click)="openSubmitDialog()">Submit</a>
+                </li>
+                <li>
+                    <a href="#" title="Cancel" class="btn lg border-btn">Cancel</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+<app-footer></app-footer>

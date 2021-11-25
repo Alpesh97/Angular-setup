@@ -1,0 +1,22 @@
+@import 'colors';
+@import 'mixins';
+@import 'break-points';
+@import 'fonts';
+@import 'typography';
+@import 'form-elements';
+@import 'custom';
+@import 'custom-modal';
+
+.mandatory {
+    color: $red;
+}
+
+.red-snackbar {
+    background: $dark_red;
+    color:$white;
+}
+
+.green-snackbar {
+    background: $green;
+    color:$white;
+}

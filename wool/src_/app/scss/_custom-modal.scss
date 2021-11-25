@@ -1,0 +1,50 @@
+::ng-deep .cdk-overlay-dark-backdrop {
+    background:rgba(0,0,0,0.5)
+}
+::ng-deep .cdk-overlay-pane {
+    &.custom-popup {
+        max-width: 480px !important;
+        width: 100%;
+        margin:0 auto;
+        padding:0 15px;
+    }
+   
+    
+}
+::ng-deep .mat-dialog-container {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.28);
+    border-radius: 0;
+    padding:24px 30px 30px;
+    @include bp(sm-max) {
+        padding:20px 15px;
+    }
+    @include bp(xxxs-max) {
+      padding-top:30px;
+    }
+    .modal-heading {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 25px;
+        position: relative;
+        @include bp(sm-max) {
+            margin-bottom: 20px;
+        }
+        a {
+            line-height: 0;
+            padding: 15px;
+            margin: -15px -15px -15px 0;
+            @include bp(sm-max) {
+                padding:5px;
+                margin:-5px -5px -5px 0;
+            }
+            @include bp(xxxs-max) {
+                position: absolute;
+                right: 0px;
+                top:-15px;
+            }
+        }
+        
+        
+      }
+}

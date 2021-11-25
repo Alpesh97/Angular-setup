@@ -1,0 +1,103 @@
+@import './../../scss/main.scss';
+
+.site-footer {
+  margin-top:-60px;
+  padding: 21px 0;
+  @include bp(sm-max) {
+    margin-top:-90px;
+  }
+  @include bp(xxs-max) {
+    margin-top:-135px
+  }
+  @include bp(xxxs-max) {
+    margin-top:-153px
+  }
+  // @include bp(md-max) {
+  //   padding:15px 0;
+  // }
+  background: $black;
+  .site-footer-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include bp(sm-max) {
+     flex-direction: column;
+    }
+    p {
+      color: $off_white;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 300;
+      text-transform: uppercase;
+      margin-top: -7px;
+      
+      @include bp(sm-max) {
+        margin-bottom:5px;
+        margin-top:0;
+      }
+      @include bp(xxxs-max) {
+      text-align: center;
+      }
+      sup {
+        position: relative;
+        right:-1px;
+        top:4px;
+        @include bp(sm-max) {
+          top:2px;
+        }
+      }
+    }
+    .footer-links {
+      display: flex;
+      margin-left: 3px;
+      @include bp(sm-max) {
+        margin-left: 0;
+      }
+      @include bp(xxs-max) {
+        flex-direction: column;
+        align-items: center;
+      }
+      li {
+        position: relative;
+        + li {
+          padding-left: 6px;
+          margin-left: 6px;
+          @include bp(xxs-max) {
+            margin:5px 0 0;
+            padding:0;
+          }
+          &:before {
+            position: absolute;
+            content: "";
+            left: 0;
+            top: 3px;
+            height: 12px;
+            width: 1px;
+            background: $off_white;
+            @include bp(xxs-max) {
+              display: none;
+            }
+          }
+        }
+        a {
+          color: $off_white;
+          font-size: 14px;
+          line-height: 18px;
+          font-weight: 300;
+          text-transform: uppercase;
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+    }
+  }
+}
+@-moz-document url-prefix() {
+  .site-footer .site-footer-inner p {
+    margin-top:-4px !important;
+    @include bp(sm-max) {
+      margin-top:0 !important;
+    }
+  }
+}

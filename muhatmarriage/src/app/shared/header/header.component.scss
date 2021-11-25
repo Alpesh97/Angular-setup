@@ -1,0 +1,680 @@
+@import "general";
+@import "search-grid-layout";
+body {
+    ::ng-deep &.menu-open {
+        overflow: hidden;
+    }
+}
+.site-header {
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    @include transition(all 0.3s);
+    background-color: $white;
+    box-shadow: 0px 0px 12px 0px rgba(0,0,0,0.12); 
+    top:0;
+    &.home-header{
+        background-color: transparent;
+        position: absolute;
+        .header-wrapper {
+            .mat-flat-button {
+                &.mat-primary {
+                    background-color: $primary-color !important;
+                    color: $white !important;
+                }
+            }
+        }
+        // ::ng-deep .sticky-header &{
+        //     background-color: $primary-color;
+        // }
+    }
+    .header-wrapper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        @include rem-fallback(padding, 10, 50);
+        @include bp(xxlg-max) {
+            @include rem-fallback(padding, 10, 15);
+        }
+        .logo-wrapper {
+            position: relative;
+            z-index: 9;
+            a {
+                display: inline-block;
+                img {
+                    @include rem-fallback(width, 228);
+                    @include rem-fallback(height, 36);
+                    @include bp(slg-max) {
+                        @include rem-fallback(width, 200);
+                        @include rem-fallback(height, 32);
+                    }
+                    @include bp(sm-max) {
+                        @include rem-fallback(width, 180);
+                        @include rem-fallback(height, 28);
+                    }
+                    @include bp(xxs-max) {
+                        @include rem-fallback(width, 140);
+                        @include rem-fallback(height, 24);
+                    }
+                    @include bp(xxxs-max) {
+                        @include rem-fallback(width, 100);
+                        @include rem-fallback(height, 19);
+                    }
+                }
+            }
+        }
+        .main-nav-wrapper {
+            @include bp(smd-max) {
+                // flex-direction: row-reverse;
+            }
+            .main-nav-wrapper-inner-wrapper {
+                display: flex;
+                align-items: center;
+                @include bp(sm-max) {
+                    display: block;
+                }
+            }
+            .home-nav {
+                @include bp(smd-max) {
+                    @include rem-fallback(margin-left, 12);
+                    ::ng-deep .rtl-direction & {
+                        margin-right: 12px !important;
+                        margin-left: 0 !important;
+                    }
+                }
+            }
+            .language-dropdown {
+                cursor: pointer;
+                @include rem-fallback(margin-left, 30);
+                @include bp(sm-max) {
+                    @include rem-fallback(margin-left, 15);
+                }
+                ::ng-deep .rtl-direction & {
+                    margin-left: 0 !important;
+                    margin-right: 0 !important;
+                }
+                ::ng-deep .mat-form-field-appearance-legacy {
+                    .mat-form-field-infix {
+                        padding: 0;
+                        @include rem-fallback(width, 68);
+                        border-top: none;
+                        @include bp(xxs-max) {
+                            @include rem-fallback(width, 60);
+                        }
+                        ::ng-deep .mat-select {
+                            .mat-select-value {
+                                color: $white;
+                                @include rem-fallback(font-size, 16);
+                                @include bp(xxs-max) {
+                                    @include rem-fallback(font-size, 14);
+                                }
+                                ::ng-deep .rtl-direction & {
+                                    text-align: left;
+                                    @include rem-fallback(padding, 0, 0, 0, 5);
+                                }
+                            }
+                        }
+                        .mat-select-arrow {
+                            border: none;
+                            background-image: url("../../../assets/images/down-arrow.svg");
+                            @include rem-fallback(width, 10);
+                            @include rem-fallback(height, 10);
+                            background-size: 9px;
+                            background-repeat: no-repeat;
+                            margin: 0;
+                            @include bp(xxs-max) {
+                                position: relative;
+                                @include rem-fallback(top, -1);
+                            }
+                            // @include bp(xxs-max) {
+                            //     ::ng-deep .rtl-direction &{
+                            //     }
+                            // }
+                        }
+                    }
+                    .mat-form-field-wrapper {
+                        padding-bottom: 0;
+                    }
+                    .mat-form-field-underline {
+                        display: none;
+                    }
+                    .mat-form-field-ripple {
+                        display: none;
+                    }
+                }
+                .icon-lang-selector {
+                    img {
+                        @include rem-fallback(width, 30);
+                        cursor: pointer;
+                    }
+                    .language-switcher {
+                        .blue-e,
+                        .blue-arabic-e {
+                            display: none;
+                            ::ng-deep .rtl-direction & {
+                                display: block !important;
+                            }
+                        }
+                        .black-e,
+                        .black-arabic-e {
+                            ::ng-deep .rtl-direction & {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+            .main-nav-wrapper-inner-wrapper {
+                .search-nav {
+                    display: flex;
+                    flex-wrap: wrap;
+                    align-items: center;
+                    @include bp(smd-max) {
+                        // flex-direction: row-reverse;
+                        // padding: 0;
+                    }
+                    ::ng-deep .rtl-direction & {
+                        // padding-right: 0 !important;
+                        // padding-left: 28px;
+                    }
+                    .main-nav {
+                        @include bp(sm-max) {
+                            width: 100%;
+                        }
+                        ul {
+                            @include bp(sm-max) {
+                                justify-content: space-between;
+                            }
+                        }
+                    }
+                    .lang-profile-wrapper {
+                        display: flex;
+                        align-items: center;
+                        // @include bp(sm-max) {
+                        //     transform: translateY(-50px);
+                        //     opacity: 0;
+                        //     position: fixed;
+                        //     @include rem-fallback(top, 55);
+                        //     left: 0;
+                        //     right: 0;
+                        //     z-index: -1;
+                        //     background-color: $white;
+                        //     border-top: 1px solid rgba(0, 0, 0, 0.1);
+                        //     box-shadow: 0px 5px 5px 0px rgb(0 0 0 / 5%);
+                        //     @include transition(all 0.3s);
+                        //     @include rem-fallback(padding, 10, 15);
+                        //     ::ng-deep .menu-open & {
+                        //         transform: none !important;
+                        //         opacity: 1 !important;
+                        //     }
+                        // }
+                        .profile-nav {
+                            li {
+                                &:first-child {
+                                    text-align: left;
+                                    ::ng-deep .rtl-direction & {
+                                        text-align: right !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    ul {
+                        display: flex;
+                        flex-wrap: wrap;
+                        align-items: center;
+                        li {
+                            line-height: 0;
+                            a {
+                                @include rem-fallback(font-size, 16);
+                                color: $white;
+                                font-weight: 400;
+                                display: inline-block;
+                                &:hover {
+                                    color: $gray;
+                                }
+                                img {
+                                    @include rem-fallback(width, 30);
+                                }
+                            }
+                            &:last-child {
+                                margin-left: 35px !important;
+                                @include bp(sm-max) {
+                                    margin-left: 0 !important;
+                                }
+                                ::ng-deep .rtl-direction & {
+                                    margin-left: 28px !important;
+                                    @include bp(sm-max) {
+                                        margin: 0 !important;
+                                    }
+                                }
+                            }
+                            + li {
+                                @include rem-fallback(margin, 0, 0, 0, 42);
+                                @include bp(lg-max) {
+                                    // @include rem-fallback(margin,0,0,0,20);
+                                }
+                                @include bp(sm-max) {
+                                    margin: 0;
+                                }
+                                ::ng-deep .rtl-direction & {
+                                    margin: 0 42px 0 0 !important;
+                                    @include bp(lg-max) {
+                                        // margin: 0 20px 0 0 !important;
+                                    }
+                                    @include bp(sm-max) {
+                                        margin: 0 !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .notification-btn {
+                        color: $white;
+                        line-height: 0;
+                        position: relative;
+                        ::ng-deep &.mat-icon-button {
+                            .mat-button-wrapper {
+                                justify-content: flex-start;
+                            }
+                        }
+                        img {
+                            @include rem-fallback(width, 30);
+                        }
+                        @include bp(xxs-max) {
+                            @include rem-fallback(height, 35);
+                            @include rem-fallback(width, 35);
+                        }
+                        @include bp(xxxs-max) {
+                            @include rem-fallback(height, 30);
+                            @include rem-fallback(width, 30);
+                        }
+                        ::ng-deep .mat-badge-content {
+                            background-color: $light-blue;
+                            color: $gray;
+                            @include rem-fallback(right, 4);
+                            @include rem-fallback(top, -4);
+                            @include bp(xxxs-max) {
+                                @include rem-fallback(font-size, 10);
+                                @include rem-fallback(width, 18);
+                                @include rem-fallback(height, 18);
+                                @include rem-fallback(line-height, 18);
+                            }
+                            ::ng-deep .rtl-direction & {
+                                right: auto !important;
+                                @include rem-fallback(left, 4);
+                                @include bp(xxxs-max) {
+                                }
+                            }
+                        }
+                    }
+                    .profile-nav {
+                        @include rem-fallback(margin, 0, 0, 0, 28);
+                        @include bp(lg-max) {
+                            // @include rem-fallback(margin,0,0,0,20);
+                        }
+                        @include bp(smd-max) {
+                            // @include rem-fallback(margin,0,0,0,10);
+                            // @include rem-fallback(padding-right,35);
+                        }
+                        @include bp(xxs-max) {
+                            // @include rem-fallback(margin,0,0,0,5);
+                            // @include rem-fallback(padding-right,28);
+                        }
+                        @include bp(xxxs-max) {
+                            // margin: 0;
+                        }
+                        ::ng-deep .rtl-direction & {
+                            margin: 0 !important;
+                            @include bp(lg-max) {
+                                // margin: 0 20px 0 0 !important;
+                            }
+                            @include bp(smd-max) {
+                                // margin: 0 10px 0 0 !important;
+                                // padding-left: 35px;
+                                // padding-right: 0 !important;
+                            }
+                            @include bp(xxs-max) {
+                                // margin: 0 5px 0 0 !important;
+                                // padding-left: 28px;
+                            }
+                            @include bp(xxxs-max) {
+                                // margin: 0 !important;
+                            }
+                        }
+                        li {
+                            + li {
+                                @include rem-fallback(margin, 0, 0, 0, 29);
+                                // @include bp(lg-max){
+                                //     @include rem-fallback(margin,0,0,0,20);
+                                // }
+                                // @include bp(smd-max){
+                                //     @include rem-fallback(margin,0,0,0,10);
+                                // }
+                                ::ng-deep .rtl-direction & {
+                                    margin: 0 40px 0 0 !important;
+                                    // @include bp(lg-max){
+                                    //     margin: 0 20px 0 0 !important;
+                                    // }
+                                    // @include bp(smd-max){
+                                    //     margin: 0 10px 0 0 !important;
+                                    // }
+                                }
+                            }
+                            .profile-menu {
+                                line-height: 0;
+                                ::ng-deep .mat-button {
+                                    position: relative;
+                                    padding: 0;
+                                    min-width: 100%;
+                                    display: flex;
+                                    line-height: 0;
+                                    align-items: center;
+                                    .mat-button-wrapper {
+                                        img {
+                                            @include rem-fallback(width, 30);
+                                        }
+                                    }
+                                    &[aria-expanded=true] {
+                                        &.profile-menu-link {
+                                        &::before {
+                                            opacity: 1;
+                                            visibility:visible;
+                                        }
+                                    }
+                                    }
+                                    &.profile-menu-link {
+                                        &:before {
+                                            content: "";
+                                            position: absolute;
+                                            top: calc(100% + 2px);
+                                            left: auto;
+                                            @include rem-fallback(height, 17);
+                                            @include rem-fallback(width, 17);
+                                            @include rem-fallback(right, 1);
+                                            background-color: $white;
+                                            transform: rotate(45deg) translateX(50%);
+                                            box-shadow: -2px -2px 2px 0px rgb(0 0 0 / 5%);
+                                            opacity: 0;
+                                            visibility: hidden;
+                                            z-index: 6;
+                                            right: 50%;
+
+                                            @include transition(all 0.3s);
+                                            ::ng-deep .rtl-direction & {
+                                                @include rem-fallback(left, 17);
+                                                right: auto;
+                                            }
+                                        }
+                                }
+
+                                    &:hover {
+                                        &:not(.mat-button-disabled) {
+                                            .mat-button-focus-overlay {
+                                                opacity: 0;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .mat-flat-button {
+            &.mat-primary {
+                background-color: $primary-color;
+                border-radius: 7px;
+                @include rem-fallback(font-size, 18);
+                @include rem-fallback(min-width, 126);
+                @include rem-fallback(line-height, 42);
+                @include rem-fallback(height, 42);
+                @include transition(all 0.3s);
+                @include bp(slg-max) {
+                    @include rem-fallback(min-width, 110);
+                }
+                @include bp(sm-max) {
+                    @include rem-fallback(font-size, 16);
+                    @include rem-fallback(min-width, 70);
+                    @include rem-fallback(line-height, 36);
+                    @include rem-fallback(height, 36);
+                }
+                @include bp(xxs-max) {
+                    @include rem-fallback(font-size, 14);
+                    @include rem-fallback(padding, 0, 12);
+                }
+                ::ng-deep .sticky-header & {
+                    background-color: $light-blue !important;
+                    color: $gray;
+                }
+            }
+        }
+        &.has-menu-icon {
+            @include bp(sm-max) {
+                .logo-wrapper {
+                    max-width: 25%;
+                    flex: 0 0 25%;
+                }
+                .main-nav-wrapper {
+                    flex: 1;
+                    .main-nav-wrapper-inner-wrapper {
+                        flex: 1;
+                        .profile-nav {
+                            margin: 0 !important;
+                            width: 100%;
+                            .mat-button {
+                                justify-content: center;
+                            }
+                            li {
+                                max-width: 50%;
+                                flex: 0 0 50%;
+                                text-align: center;
+                                margin: 0 !important;
+                                .notification-btn {
+                                    @include rem-fallback(margin, 0, 30, 0, 0);
+                                    ::ng-deep .rtl-direction & {
+                                        margin: 0 0 0 30px !important;
+                                    }
+                                }
+                                .profile-menu {
+                                    &.user-profile {
+                                        margin: 0 !important;
+                                        .mat-button {
+                                            justify-content: flex-start;
+                                        }
+                                    }
+                                    @include rem-fallback(margin, 0, 30, 0, 0);
+                                    ::ng-deep .rtl-direction & {
+                                        margin: 0 0 0 30px !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .language-dropdown {
+                        max-width: 25%;
+                        flex: 0 0 25%;
+                        text-align: right;
+                        margin: 0;
+                        ::ng-deep .rtl-direction & {
+                            text-align: left !important;
+                        }
+                    }
+                }
+            }
+            .logo-wrapper {
+                a {
+                    @include bp(sm-max) {
+                        display: none !important;
+                    }
+                }
+            }
+            .mob-nav-icon {
+                position: relative;
+                @include rem-fallback(height, 40);
+                @include rem-fallback(width, 40);
+                z-index: 11;
+                cursor: pointer;
+                display: none;
+                @include bp(sm-max) {
+                    display: block;
+                    span {
+                        position: absolute;
+                        background-color: $primary-color;
+                        @include rem-fallback(width, 30);
+                        @include rem-fallback(height, 2);
+                        @include transition(all 0.3s);
+                        top: 50%;
+                        bottom: 0;
+                        left: 0;
+                        transform: translateY(-50%);
+                        ::ng-deep .menu-open & {
+                            background-color: transparent !important;
+                        }
+                        ::ng-deep .rtl-direction & {
+                            left: auto !important;
+                            right: 0;
+                        }
+                        &:before {
+                            @include rem-fallback(bottom, -10);
+                            ::ng-deep .menu-open & {
+                                transform: rotate(45deg) !important;
+                                bottom: 0 !important;
+                            }
+                        }
+                        &:after {
+                            @include rem-fallback(top, -10);
+                            ::ng-deep .menu-open & {
+                                transform: rotate(-45deg) !important;
+                                top: 0 !important;
+                            }
+                        }
+                        &:before,
+                        &:after {
+                            content: "";
+                            @include rem-fallback(width, 30);
+                            @include rem-fallback(margin, 0, -5, 0, 0);
+                            position: absolute;
+                            background-color: $primary-color;
+                            @include rem-fallback(height, 2);
+                            @include transition(all 0.3s);
+                            ::ng-deep .rtl-direction & {
+                                margin: 0 0 0 -5px !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+::ng-deep .profile-menu-list {
+    &.mat-menu-panel {
+        @include rem-fallback(min-width, 220);
+        box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.17);
+        -webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.17);
+        position: relative;
+        @include rem-fallback(right, -17);
+        @include rem-fallback(top, 15);
+        border-radius: 0;
+        ::ng-deep .rtl-direction & {
+            @include rem-fallback(left, -17);
+            right: auto !important;
+        }
+        .mat-menu-content {
+            &:not(:empty) {
+                padding: 0;
+            }
+        }
+    }
+    ::ng-deep .mat-menu-item {
+        @include rem-fallback(font-size, 14);
+        @include rem-fallback(height, 36);
+        @include rem-fallback(line-height, 36);
+        @include rem-fallback(padding, 0, 20);
+        text-transform: capitalize;
+        &:hover {
+            color: $gray2;
+            background-color: $light-gray-bg;
+        }
+        &:last-child {
+            color: $primary-color;
+            background-color: $light-gray-bg;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    }
+}
+
+::ng-deep .my-profile-wrapper {
+    @include rem-fallback(top, 15);
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 14%);
+    position: relative;
+    .profile-heading {
+        padding: 13px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $primary-color;
+        color: $white;
+        font-size: 18px;
+        font-weight: 600;
+        a {
+            padding: 10px;
+            margin: -10px;
+        }
+    }
+    &.mat-menu-panel {
+        max-width: 360px;
+    }
+    .mat-menu-content:not(:empty) {
+        padding: 0;
+    }
+}
+.site-header {
+    &.home-header {
+        .header-wrapper {
+            .main-nav-wrapper {
+                .main-nav-wrapper-inner-wrapper {
+                    @include bp(sm-max) {
+                        display: flex !important;
+                    }
+                }
+            }
+        }
+    } 
+    &:not(.home-header) {
+        .header-wrapper {
+            .main-nav-wrapper {
+                .main-nav-wrapper-inner-wrapper {
+                    .search-nav {
+                        .lang-profile-wrapper {
+                            &:not(.register-header) {
+                                @include bp(sm-max) {
+                                    transform: translateY(-50px);
+                                    opacity: 0;
+                                    position: fixed;
+                                    @include rem-fallback(top, 55);
+                                    left: 0;
+                                    right: 0;
+                                    z-index: -1;
+                                    background-color: $white;
+                                    border-top: 1px solid rgba(0, 0, 0, 0.1);
+                                    box-shadow: 0px 5px 5px 0px rgb(0 0 0 / 5%);
+                                    @include transition(all 0.3s);
+                                    @include rem-fallback(padding, 10, 15);
+                                    ::ng-deep .menu-open & {
+                                        transform: none !important;
+                                        opacity: 1 !important;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
